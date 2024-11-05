@@ -27,6 +27,8 @@
                         </li>
                         <li class="green-toper"><a href="#" data-toggle="modal" data-target="#login"><i class="fa fa-phone-alt"></i> Enquire</a></li>
                         <li class="green-toper"><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-out-alt"></i> Pay Now</a></li>
+                        <li class="green-toper"><a href="cms/LoginForm.php" ><i class="fa fa-sign-out-alt"></i>login</a></li>
+
                         <li>
                             <div class="header_sidemenu">
                                 <div class="menu">
