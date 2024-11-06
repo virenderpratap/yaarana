@@ -84,133 +84,73 @@
     <?php include "deals.php" ?>
     <!-- top deal ends -->
 
-    <!-- holiday Themes starts -->
-    <section class="top-destinations top-desti1">
-        <div class="container">
-            <div class="section-title title-full">
-                <h2 class="mar-0">Holiday  <span>Themes Special</span></h2>
-            </div>
-            <div class="content">
-                <div class="row ">
-                    <div class="col-md-6">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="holiday-yaarana-theme">
-                                <img src="images/family.jpg" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Family Tour Packages</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/honeymoon.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> Honeymoon</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/pilgrimage.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> Pilgrimage Tour</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-5">
-                        <div class="row">
-                            <div class="col-md-6 mt-5">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/india-tour.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> India Tour </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-5">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/adventures.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> Adventure</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
-                    <div class="col-md-6 mt-7">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="holiday-yaarana-theme">
-                                <img src="images/friends.jpg" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
+
+<!-- holiday Themes starts -->
+<section class="top-destinations top-desti1">
+    <div class="container">
+        <div class="section-title title-full">
+            <h2 class="mar-0">Holiday <span>Themes Special</span></h2>
+        </div>
+        <div class="content">
+            <div class="row">
+                <?php
+                // Connect to the database
+                $conn = new mysqli('localhost', 'root', '', 'yaarana2');
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                // Fetch holiday packages from the database
+                $sql = "SELECT * FROM holiday_packages ORDER BY created_at DESC LIMIT 6"; // Limiting to 6 packages
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Loop through and display each package
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <div class="col-md-6 mt-5">
+                            <div class="td-item box-shadow-0 border-0">
+                                <div class="holiday-yaarana-theme">
+                                <div class="holiday-yaarana-theme">
+                                    <img src="cms/uploads/<?php echo basename($row['image']); ?>" alt="image">
                                 </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Friends Tour Packages</h3>
+
+                                </div>
+                                <div class="td-content">
+                                    <div class="rating mar-bottom-15">
+                                        <?php 
+                                        // Display stars based on rating
+                                        for ($i = 0; $i < 5; $i++) {
+                                            echo ($i < $row['rating']) ? '<span class="fa fa-star checked"></span>' : '<span class="fa fa-star"></span>';
+                                        }
+                                        ?>
+                                    </div>
+                                    <h3><i class="fa fa-map-marker-alt"></i> <?php echo $row['package_name']; ?></h3>
+                                    <p><?php echo $row['description']; ?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                </div>
+                        <?php
+                    }
+                } else {
+                    echo "<p>No holiday packages available.</p>";
+                }
+                $conn->close();
+                ?>
             </div>
         </div>
-    </section>
-    <!-- holiday Themes ends -->
+    </div>
+</section>
+<!-- holiday Themes ends -->
 
+
+
+
+
+    
     <!-- banner starts -->
     <section class="search-banner display-flex">
         <div class="slider video-slider">
