@@ -84,6 +84,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             <ul class="dashboard-nav-list">
                 <li><a href="welcome.php"><i class="sl sl-icon-home"></i> Add New Deals</a></li>
                 <li><a href="HolidayTheam.php" class="active"><i class="sl sl-icon-book-open"></i> Holiday Themes Special</a></li>
+                <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i>India Tour Packages</a></li>
                 <li><a href="/yaarana/cms/InternationalTour.php"><i class="sl sl-icon-user"></i> InternationalTour.php</a></li>
             </ul>
         </div>

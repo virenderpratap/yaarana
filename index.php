@@ -173,108 +173,47 @@
         </div>
     </section>
     <!-- banner ends -->
-    <!-- india packages starts -->
-    <section class="top-destinations top-desti2">
-        <div class="container">
-            <div class="section-title">
-                <h2>India <span> Tour Packages</span></h2>
-                <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/himachal.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Himachal</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/package2.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Spiti</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/uttarakhand.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Uttarakhand</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/kerala.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Kerala</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/nainital.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Kashmir</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/rajasthan.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Rajasthan</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/goa.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Goa</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/meghalaya.png" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Meghalaya</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <?php
+// Fetch packages for the "India Tour Packages" section
+$sql_india_packages = "SELECT * FROM india_tours";
+$result_india_packages = mysqli_query($con, $sql_india_packages);
+?>
+
+<!-- India Packages Section -->
+<section class="top-destinations top-desti2">
+    <div class="container">
+        <div class="section-title">
+            <h2>India <span>Tour Packages</span></h2>
+            <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
+        </div>
+        <div class="content">
+            <div class="row">
+                <?php
+                // Loop through each India package and display it
+                if (mysqli_num_rows($result_india_packages) > 0) {
+                    while ($package = mysqli_fetch_assoc($result_india_packages)) {
+                        echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
+                        echo '    <div class="td-item">';
+                        echo '        <div class="td-image">';
+                        echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
+                        echo '        </div>';
+                        echo '        <p class="price white">trending</p>';
+                        echo '        <div class="td-content">';
+                        echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
+                        echo '        </div>';
+                        echo '    </div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No India packages available at the moment.</p>';
+                }
+                ?>
             </div>
         </div>
-    </section>
-    <!-- india packages ends -->
+    </div>
+</section>
+<!-- India Packages Ends -->
+
     <!-- Trending Starts -->
     <section class="trending pad-bottom-50 bg-grey">
         <div class="container">
