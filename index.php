@@ -84,63 +84,52 @@
     <?php include "deals.php" ?>
     <!-- top deal ends -->
 
-
-
-
-<!-- holiday Themes starts -->
-<section class="top-destinations top-desti1">
+    <!-- holiday Themes starts -->
+     
+    <section class="top-destinations top-desti1">
     <div class="container">
         <div class="section-title title-full">
             <h2 class="mar-0">Holiday <span>Themes Special</span></h2>
         </div>
-        <div class="content">
-            <div class="row">
-                <?php
-                // Connect to the database
-                $conn = new mysqli('localhost', 'root', '', 'yaarana2');
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+        <div class="grid-container">
+            <?php
+            // Fetching packages from database
+            $conn = new mysqli('localhost', 'root', '', 'yaarana2');
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT * FROM holiday_packages ORDER BY created_at DESC LIMIT 6";
+            $result = $conn->query($sql);
 
-                // Fetch holiday packages from the database
-                $sql = "SELECT * FROM holiday_packages ORDER BY created_at DESC LIMIT 6"; // Limiting to 6 packages
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    // Loop through and display each package
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
-                        <div class="col-md-6 mt-5">
-                            <div class="td-item box-shadow-0 border-0">
-                                <div class="holiday-yaarana-theme">
-                                <div class="holiday-yaarana-theme">
-                                    <img src="cms/uploads/<?php echo basename($row['image']); ?>" alt="image">
+            if ($result->num_rows > 0) {
+                $i = 1;
+                while ($row = $result->fetch_assoc()) {
+                    $class = ($i % 2 == 0) ? "package-small" : "package-large";
+                    ?>
+                    <div class="package-item <?php echo $class; ?>">
+                        <div class="td-item box-shadow-0 border-0">
+                            <div class="holiday-yaarana-theme">
+                                <img src="cms/uploads/<?php echo basename($row['image']); ?>" alt="image">
+                            </div>
+                            <div class="td-content">
+                                <div class="rating mar-bottom-15">
+                                    <?php for ($j = 0; $j < 5; $j++) {
+                                        echo '<span class="fa fa-star checked"></span>';
+                                    } ?>
                                 </div>
-
-                                </div>
-                                <div class="td-content">
-                                    <div class="rating mar-bottom-15">
-                                        <?php 
-                                        // Display stars based on rating
-                                        for ($i = 0; $i < 5; $i++) {
-                                            echo ($i < $row['rating']) ? '<span class="fa fa-star checked"></span>' : '<span class="fa fa-star"></span>';
-                                        }
-                                        ?>
-                                    </div>
-                                    <h3><i class="fa fa-map-marker-alt"></i> <?php echo $row['package_name']; ?></h3>
-                                    <p><?php echo $row['description']; ?></p>
-                                </div>
+                                <h3><i class="fa fa-map-marker-alt"></i> <?php echo $row['package_name']; ?></h3>
+                                <p><?php echo $row['description']; ?></p>
                             </div>
                         </div>
-                        <?php
-                    }
-                } else {
-                    echo "<p>No holiday packages available.</p>";
+                    </div>
+                    <?php
+                    $i++;
                 }
-                $conn->close();
-                ?>
-            </div>
+            } else {
+                echo "<p>No holiday packages available.</p>";
+            }
+            $conn->close();
+            ?>
         </div>
     </div>
 </section>
@@ -1184,5 +1173,45 @@
     <script src="js/custom-date.js"></script>
 
 </body>
+<style>
+  /* Grid container for the tile layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusts for responsive layout */
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px;
+}
+
+/* Style for larger packages */
+.package-large .holiday-yaarana-theme img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Style for smaller packages */
+.package-small .holiday-yaarana-theme img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Shared styles for package items */
+.package-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+.package-item:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Stack items on smaller screens */
+    }
+}
+
+</style>
 
 </html>
