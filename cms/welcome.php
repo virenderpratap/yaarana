@@ -83,13 +83,11 @@ if (strlen($_SESSION['alogin']) == 0) {
     <!-- Sidebar Navigation -->
     <div class="dashboard-nav-container">
         <div class="dashboard-nav">
-            <ul class="dashboard-nav-list">
-                <li><a href="/yaarana/cms/welcome.php" class="active"><i class="sl sl-icon-home"></i> Add new Deals</a></li>
-                <li><a href="/yaarana/cms/HolidayTheam.php"><i class="sl sl-icon-book-open"></i> Holiday Themes Special</a></li>
-                <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i>India Tour Packages</a></li>
-                <li><a href="/yaarana/cms/InternationalTour.php"><i class="sl sl-icon-user"></i> InternationalTour.php</a></li>
-                <!-- <li><a href="settings.php"><i class="sl sl-icon-settings"></i> Settings</a></li> -->
-                <!-- <li><a href="logout.php"><i class="sl sl-icon-power"></i> Logout</a></li> -->
+        <ul class="dashboard-nav-list">
+                <li><a href="welcome.php"><i class="sl sl-icon-home"></i> Add New Deals</a></li>
+                <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i>India Tour Packages</a></li>               
+                <li><a href="HolidayTheam.php"><i class="sl sl-icon-book-open"></i> Holiday Themes</a></li>
+                <li><a href="InternationalTour.php" class="active"><i class="sl sl-icon-globe"></i> International Tour </a></li>
             </ul>
         </div>
     </div>
