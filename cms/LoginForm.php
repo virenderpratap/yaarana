@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         // Verify the password by comparing plain text (since it's not hashed)
                         if ($password === $stored_password) {
                             // Password is correct, start a new session
-                            $_SESSION["loggedin"] = true;
+                            $_SESSION["alogin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username_db;
 
