@@ -85,7 +85,7 @@
     <!-- top deal ends -->
 
     <!-- holiday Themes starts -->
-     
+
     <section class="top-destinations top-desti1">
     <div class="container">
         <div class="section-title title-full">
@@ -466,108 +466,68 @@
         </div>
     </section>
     <!-- Trending Ends -->
-    <!-- international packages starts -->
-    <section class="top-destinations top-desti2">
-        <div class="container">
-            <div class="section-title">
-                <h2>International <span> Tour Packages</span></h2>
-                <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/VIETNAM.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Vietnam</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/bali.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Bali</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/thailand.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Thailand</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/mauritius.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Mauritius</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/Singapore.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Singapore</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/maldives.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Maldives</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/dubai.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Dubai</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/malaysia.webp" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Malaysia</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+    
+    <?php
+// Fetch packages for the "International Tour Packages" section
+$sql_international_packages = "SELECT * FROM international_tours";
+$result_international_packages = mysqli_query($con, $sql_international_packages);
+?>
+
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>International Tour Packages</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- International Packages Section -->
+<section class="top-destinations top-desti2">
+    <div class="container">
+        <div class="section-title">
+            <h2>International <span>Tour Packages</span></h2>
+            <p>Dive into the spiritual heart of the world, visiting breathtaking destinations and experiencing vibrant cultures.</p>
+        </div>
+        <div class="content">
+            <div class="row">
+                <?php
+                // Loop through each international package and display it
+                if (mysqli_num_rows($result_international_packages) > 0) {
+                    while ($package = mysqli_fetch_assoc($result_international_packages)) {
+                        echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
+                        echo '    <div class="td-item">';
+                        echo '        <div class="td-image">';
+                        echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
+                        echo '        </div>';
+                        echo '        <p class="price white">trending</p>';
+                        echo '        <div class="td-content">';
+                        echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
+                        echo '        </div>';
+                        echo '    </div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No international packages available at the moment.</p>';
+                }
+                ?>
             </div>
         </div>
-    </section>
-    <!-- international packages ends -->
+    </div>
+</section>
+
+<!-- International Packages Ends -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+    
     <!-- top destination starts -->
     <section class="top-destinations top-desti1">
         <div class="container">
