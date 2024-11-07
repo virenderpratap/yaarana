@@ -28,53 +28,63 @@
 <body>
     <?php include "head.php" ?>
 
-    <!-- banner starts -->
-    <section class="banner">
-        <div class="slider slide-height">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/christmas-offer.jpg)"></div>
-                            <!-- <div class="swiper-content">
-                                <h1>Make you Free to <span>travel</span> with us</h1>
-                                <p class="mar-bottom-20">Foresee the pain and trouble that are bound to ensue and equal fail in their duty through weakness. </p>
-                                <a href="" class="biz-btn">Explore More</a>
-                                <a href="" class="biz-btn mar-left-10">Contact Us</a>
-                            </div>  -->
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/new-year-offer.jpg)"></div>
 
-                            <div class="overlay"></div>
+
+
+
+
+    <?php
+// Fetch all banners from the database
+$sql_banners = "SELECT * FROM banners ORDER BY created_at DESC"; // You can adjust the order as per your requirements
+$result_banners = mysqli_query($con, $sql_banners);
+?>
+
+<!-- banner starts -->
+<section class="banner">
+    <div class="slider slide-height">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <?php
+                // Check if there are any banners in the database
+                if (mysqli_num_rows($result_banners) > 0) {
+                    // Loop through each banner and display them
+                    while ($banner = mysqli_fetch_assoc($result_banners)) {
+                        ?>
+                        <div class="swiper-slide">
+                            <div class="slide-inner">
+                                <div class="slide-image" style="background-image:url('<?php echo $banner['image_url']; ?>')"></div>
+                                <div class="overlay"></div>
+                            </div>
                         </div>
-                    </div>
+                        <?php
+                    }
+                } else {
+                    // Default fallback banner if no banners are available
+                    ?>
                     <div class="swiper-slide">
                         <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/ban2.jpg)"></div>
-
+                            <div class="slide-image" style="background-image:url('images/default-banner.jpg')"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/slider/slider3.jpg)"></div>
-
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                    <?php
+                }
+                ?>
             </div>
-
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-    </section>
-    <!-- banner ends -->
+    </div>
+</section>
+<!-- banner ends -->
+
+
+
+
+
+
+    
 
     <!-- form starts -->
     <?php include "index-form.php" ?>
@@ -628,7 +638,7 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
     </section>
     <!-- why us ends -->
     <!-- tour agents starts -->
-    <section class="tour-agent tour-agent1">
+    <!-- <section class="tour-agent tour-agent1">
         <div class="container">
             <div class="row display-flex">
                 <div class="col-md-4 col-xs-12">
@@ -678,8 +688,13 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- tour agents Ends -->
+
+     <!-- tour agents Start -->
+      <?php include "MembersDashboard.php"?>
+     <!-- tour agents Start -->
+
 
 
 
