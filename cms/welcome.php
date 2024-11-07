@@ -2,7 +2,7 @@
 session_start();
 include('include/config.php');
 
-if (strlen($_SESSION['alogin']) == 0) {
+if (strlen($_SESSION['alogin']) == 0) {    
     header('location:index.php');
 } else {
     date_default_timezone_set('Asia/Kolkata'); // Set the timezone
@@ -37,10 +37,10 @@ if (strlen($_SESSION['alogin']) == 0) {
         // Insert the new deal into the database
         $sql = "INSERT INTO top_deals(title, subtitle, image_path) VALUES ('$title', '$subtitle', '$imagePath')";
         if (mysqli_query($con, $sql)) {
-            // Deal added successfully, set session message and redirect
+            // Deal added successfully, redirect to prevent resubmission
             $_SESSION['add_message'] = "Deal added successfully!";
             header('Location: welcome.php'); // Redirect to prevent form resubmission
-            exit;
+            exit; // Don't let the script continue after the redirect
         } else {
             echo "<script>alert('Error adding deal: " . mysqli_error($con) . "');</script>";
         }
@@ -53,9 +53,10 @@ if (strlen($_SESSION['alogin']) == 0) {
         // Delete the deal from the database
         $sql_delete = "DELETE FROM top_deals WHERE id = $deal_id";
         if (mysqli_query($con, $sql_delete)) {
-            // Set session variable for success message
+            // Set a session variable to display the success message
             $_SESSION['delete_message'] = "Deal deleted successfully!";
-            header('Location: welcome.php'); // Redirect to prevent resubmission
+            // Redirect to the same page to prevent resubmitting the form on refresh
+            header('Location: welcome.php');
             exit;
         } else {
             echo "<script>alert('Error deleting deal: " . mysqli_error($con) . "');</script>";
@@ -83,15 +84,12 @@ if (strlen($_SESSION['alogin']) == 0) {
     <div class="dashboard-nav-container">
         <div class="dashboard-nav">
         <ul class="dashboard-nav-list">
-        <li><a href="Banners.php"><i class="sl sl-icon-home"></i>Banners</a></li>  
+                <li><a href="Banners.php"><i class="sl sl-icon-home"></i>Banners</a></li>  
                 <li><a href="welcome.php"><i class="sl sl-icon-home"></i> Add New Deals</a></li>
                 <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i>India Tour Packages</a></li>               
                 <li><a href="HolidayTheam.php"><i class="sl sl-icon-book-open"></i> Holiday Themes</a></li>
-                <li><a href="InternationalTour.php" class="active"><i class="sl sl-icon-globe"></i> International Tour </a></li>
-                <li><a href="Members.php"><i class="sl sl-icon-book-open"></i>Members</a></li>               
-
-
-
+                <li><a href="InternationalTour.php"><i class="sl sl-icon-globe"></i> International Tour </a></li>
+                <li><a href="Members.php" class="active"><i class="sl sl-icon-users"></i> Members</a></li>
             </ul>
         </div>
     </div>
@@ -102,22 +100,15 @@ if (strlen($_SESSION['alogin']) == 0) {
         <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>  
 
         <!-- Sticky Navigation and Profile -->
-        <div class="dashboard-sticky-nav">
+        <div class="dashboard-sticky-nav header_black">
             <div class="content-left pull-left">
                 <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
             </div>
             <div class="content-right pull-right">
                 <div class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <div class="profile-sec">
-                            <div><a href="javascript:void(0);" onclick="window.location.href='index.php';">
-                            <a href="javascript:void(0);" onclick="logoutAndRedirect();">
-                                <button type="button"><i class="fa fa-sign-out-alt"></i> Logout</button>
-                            </a>
-
-                            </a></div>
-                        <div class="dash-content">
-                    
+                    <div class="profile-sec">
+                        <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
                         </div>
                             <!-- <div class="dash-content">
                                 <h4>Loural Teak</h4>
@@ -199,27 +190,29 @@ if (strlen($_SESSION['alogin']) == 0) {
             <thead>
                 <tr>
                     <th>Deal Title</th>
-                    <th>Subtitle</th>
+                    <th>Deal Subtitle</th>
                     <th>Image</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $sql_deals = "SELECT * FROM top_deals";
-                    $result = mysqli_query($con, $sql_deals);
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($deal = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>" . htmlspecialchars($deal['title']) . "</td>";
-                            echo "<td>" . htmlspecialchars($deal['subtitle']) . "</td>";
-                            echo "<td><img src='" . $deal['image_path'] . "' alt='" . htmlspecialchars($deal['title']) . "'></td>";
-                            echo "<td><a href='welcome.php?delete_id=" . $deal['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this deal?\")'>Delete</a></td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='4' class='no-data'>No deals available.</td></tr>";
+                // Fetch all deals from the database
+                $sql_deals = "SELECT * FROM top_deals";
+                $result_deals = mysqli_query($con, $sql_deals);
+                 
+                if (mysqli_num_rows($result_deals) > 0) {
+                    while ($deal = mysqli_fetch_assoc($result_deals)) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($deal['title']) . "</td>";
+                        echo "<td>" . htmlspecialchars($deal['subtitle']) . "</td>";
+                        echo "<td><img src='" . $deal['image_path'] . "' alt='" . htmlspecialchars($deal['title']) . "'></td>";
+                        echo "<td><a href='welcome.php?delete_id=" . $deal['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this deal?\")'>Delete</a></td>";
+                        echo "</tr>";
                     }
+                } else {
+                    echo "<tr><td colspan='4' class='no-data'>No deals available.</td></tr>";
+                }
                 ?>
             </tbody>
         </table>
@@ -233,6 +226,87 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 </body>
 </html>
+
+<style>
+      .table-custom {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-custom thead {
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+        }
+
+        .table-custom th, .table-custom td {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        
+
+        .table-custom td img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Hover effect for rows */
+        .table-custom tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* Styling action buttons */
+        .btn-danger {
+            background-color: #ff5c5c;
+            border-color: #ff5c5c;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .btn-danger:hover {
+            background-color: #e04d4d;
+            border-color: #e04d4d;
+        }
+
+        .no-data {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            padding: 20px 0;
+        }
+
+        /* Table responsive for smaller screens */
+        @media (max-width: 767px) {
+            .table-custom {
+                font-size: 14px;
+            }
+
+            .table-custom th, .table-custom td {
+                padding: 8px;
+            }
+        }
+        .header_black{
+            background:#242424;
+        }
+</style>
+
+<script>
+    function logoutAndRedirect() {
+    // Log the user out (by calling a PHP logout page or using AJAX)
+    window.location.href = '/yaarana/index.php'; // This will trigger the PHP logout process
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 <?php
 }
 ?>

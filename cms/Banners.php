@@ -111,7 +111,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <!-- Dashboard Main Content -->
     <div id="dashboard">
         <!-- Sticky Navigation -->
-        <div class="dashboard-sticky-nav">
+        <div class="dashboard-sticky-nav header_black">
             <div class="content-left pull-left">
                 <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
             </div>
@@ -119,7 +119,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <div class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <div class="profile-sec">
-                            <a href="index.php"><button type="button"><i class="fa fa-sign-out-alt"></i> Logout</button></a>
+                        <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
                         </div>
                     </a>
                 </div>
@@ -174,7 +174,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 if (mysqli_num_rows($result_banners) > 0) {
                                     while ($banner = mysqli_fetch_assoc($result_banners)) {
                                         echo "<tr>";
-                                        echo "<td><img src='uploads/" . basename($banner['image_path']) . "' style='width: 100px;'></td>";
+                                        echo "<td><img src='" . $banner['image_path'] . "' style='width: 100px;'></td>";
                                         echo "<td>
                                             <a href='Banners.php?edit_id=" . $banner['id'] . "' class='btn btn-warning'>Edit</a>
                                             <a href='Banners.php?delete_id=" . $banner['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this banner?\")'>Delete</a>
@@ -182,7 +182,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         echo "</tr>";
                                     }
                                 } else {
-                                    echo "<tr><td colspan='3' class='no-data'>No banners available.</td></tr>";
+                                    echo "<tr><td colspan='2' class='no-data'>No banners available.</td></tr>";
                                 }
                                 ?>
                             </tbody>
@@ -195,6 +195,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 </div>
 
 </body>
+<style>
+     .header_black{
+            background:#242424;
+        }
+</style>
+    </style>
 </html>
 <?php
 }

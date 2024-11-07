@@ -33,41 +33,32 @@
 
 
 
-    <?php
-// Fetch all banners from the database
-$sql_banners = "SELECT * FROM banners ORDER BY created_at DESC"; // You can adjust the order as per your requirements
-$result_banners = mysqli_query($con, $sql_banners);
-?>
-
 <!-- banner starts -->
+<?php include ('cms/include/config.php'); ?>
 <section class="banner">
     <div class="slider slide-height">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <?php
-                // Check if there are any banners in the database
+                // Retrieve banners from the database
+                $sql_banners = "SELECT * FROM banners";
+                $result_banners = mysqli_query($con, $sql_banners);
+
                 if (mysqli_num_rows($result_banners) > 0) {
-                    // Loop through each banner and display them
+                    // Loop through each banner and create a slide
                     while ($banner = mysqli_fetch_assoc($result_banners)) {
-                        ?>
+                        // Assuming the image path is stored relative to 'cms/uploads/'
+                        $imagePath = 'cms/' . $banner['image_path'];
+                        echo '
                         <div class="swiper-slide">
                             <div class="slide-inner">
-                                <div class="slide-image" style="background-image:url('<?php echo $banner['image_url']; ?>')"></div>
+                                <div class="slide-image" style="background-image: url(' . htmlspecialchars($imagePath) . ')"></div>
                                 <div class="overlay"></div>
                             </div>
-                        </div>
-                        <?php
+                        </div>';
                     }
                 } else {
-                    // Default fallback banner if no banners are available
-                    ?>
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url('images/default-banner.jpg')"></div>
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <?php
+                    echo '<p>No banners available.</p>';
                 }
                 ?>
             </div>
@@ -78,6 +69,7 @@ $result_banners = mysqli_query($con, $sql_banners);
     </div>
 </section>
 <!-- banner ends -->
+
 
 
 
@@ -713,7 +705,7 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
     <section class="top-deals">
         <div class="container">
             <div class="section-title">
-                <h2>Today's Top Deals</h2>
+                <h2>Most Popular Packages</h2>
                 <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
             </div>
             <div class="row top-deal-slider">
@@ -778,16 +770,16 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
     <section class="partners bg-grey">
         <div class="container">
             <div class="section-title">
-                <h2>Our Awesome Parnters</h2>
+                <h2>Payment Methods</h2>
                 <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
             </div>
             <div class="dest-partner">
                 <div class="row partner-slider">
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/gpayy.jpg" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/paytmm.png" alt="partners">
                     </div>
                     <div class="col-md-2">
                         <img src="images/cl-3.png" alt="partners">

@@ -94,12 +94,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 
     <div id="dashboard">
         <!-- Sticky Navigation and Profile -->
-        <div class="dashboard-sticky-nav">
+        <div class="dashboard-sticky-nav header_black">
             <div class="content-left pull-left">
                 <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
             </div>
             <div class="content-right pull-right">
-                <button onclick="window.location.href='/yaarana/index.php'" class="btn btn-danger"><i class="fa fa-sign-out-alt"></i> Logout</button>
+                <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
             </div>
         </div>
 
@@ -239,6 +239,9 @@ if (strlen($_SESSION['alogin']) == 0) {
             font-size: 14px;
         }
     }
+    .header_black{
+            background:#242424;
+        }
 </style>
 
 <?php } ?>

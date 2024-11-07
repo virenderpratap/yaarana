@@ -128,7 +128,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     </div>
 
     <div id="dashboard">
-        <div class="dashboard-sticky-nav">
+        <div class="dashboard-sticky-nav header_black">
             <div class="content-left pull-left">
                 <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
             </div>
@@ -136,7 +136,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <div class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <div class="profile-sec">
-                            <a href="index.php"><button type="button"><i class="fa fa-sign-out-alt"></i> Logout</button></a>
+                        <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
                         </div>
                     </a>
                 </div>
@@ -221,6 +221,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+<style>
+.header_black{
+            background:#242424;
+        }
+</style>
 </html>
 
 <?php
