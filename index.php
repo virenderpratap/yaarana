@@ -727,7 +727,7 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
                         <img src="images/japan.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Japan</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i>Japan</h6>
                         <h4><a href="#">Save big on hotels!</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">

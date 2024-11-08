@@ -15,13 +15,57 @@ if (strlen($_SESSION['alogin']) == 0) {
         $title = mysqli_real_escape_string($con, $_POST['title']);
         $content = mysqli_real_escape_string($con, $_POST['content']);
         $date = mysqli_real_escape_string($con, $_POST['date']);
-
+        
         // Check if it's an update or new event addition
         if (isset($_POST['event_id']) && !empty($_POST['event_id'])) {
             $event_id = $_POST['event_id'];
+            
+            // Update event details (title, content, date)
             $sql_update = "UPDATE events SET title = '$title', content = '$content', date = '$date' WHERE id = $event_id";
-
             if (mysqli_query($con, $sql_update)) {
+                // Handle image uploads (new images only)
+                if (isset($_FILES['images']) && !empty($_FILES['images']['name'][0])) {
+                    $image_files = $_FILES['images'];
+                    $image_count = count($image_files['name']);
+
+                    // Delete old images associated with this event
+                    $sql_delete_images = "DELETE FROM event_images WHERE event_id = $event_id";
+                    if (mysqli_query($con, $sql_delete_images)) {
+                        // Also remove the actual image files from the server
+                        $sql_get_old_images = "SELECT image_path FROM event_images WHERE event_id = $event_id";
+                        $result_old_images = mysqli_query($con, $sql_get_old_images);
+                        while ($old_image = mysqli_fetch_assoc($result_old_images)) {
+                            $old_image_path = $old_image['image_path'];
+                            if (file_exists($old_image_path)) {
+                                unlink($old_image_path);
+                            }
+                        }
+                    }
+
+                    // Upload new images
+                    for ($i = 0; $i < $image_count; $i++) {
+                        $image_name = $image_files['name'][$i];
+                        $image_tmp_name = $image_files['tmp_name'][$i];
+                        $image_path = 'uploads/events/' . basename($image_name);
+
+                        // Ensure the directory exists
+                        if (!is_dir('uploads/events/')) {
+                            mkdir('uploads/events/', 0777, true);
+                        }
+
+                        // Move uploaded file to the "uploads" directory
+                        if (move_uploaded_file($image_tmp_name, $image_path)) {
+                            // Insert the new image path into the database
+                            $sql_image = "INSERT INTO event_images (event_id, image_path) VALUES ($event_id, '$image_path')";
+                            if (!mysqli_query($con, $sql_image)) {
+                                echo "<script>alert('Error inserting image into database: " . mysqli_error($con) . "');</script>";
+                            }
+                        } else {
+                            echo "<script>alert('Error uploading image: $image_name');</script>";
+                        }
+                    }
+                }
+
                 $_SESSION['edit_message'] = "Event updated successfully!";
                 header('Location: AddEvents.php');
                 exit;
@@ -40,16 +84,26 @@ if (strlen($_SESSION['alogin']) == 0) {
                     $image_files = $_FILES['images'];
                     $image_count = count($image_files['name']);
 
+                    // Loop through each uploaded image
                     for ($i = 0; $i < $image_count; $i++) {
                         $image_name = $image_files['name'][$i];
                         $image_tmp_name = $image_files['tmp_name'][$i];
                         $image_path = 'uploads/events/' . basename($image_name);
 
-                        // Move uploaded image to the appropriate directory
+                        // Ensure the directory exists
+                        if (!is_dir('uploads/events/')) {
+                            mkdir('uploads/events/', 0777, true);
+                        }
+
+                        // Move uploaded file to the "uploads" directory
                         if (move_uploaded_file($image_tmp_name, $image_path)) {
-                            // Insert the image path into the event_images table
+                            // Insert the image path into the database
                             $sql_image = "INSERT INTO event_images (event_id, image_path) VALUES ($event_id, '$image_path')";
-                            mysqli_query($con, $sql_image);
+                            if (!mysqli_query($con, $sql_image)) {
+                                echo "<script>alert('Error inserting image into database: " . mysqli_error($con) . "');</script>";
+                            }
+                        } else {
+                            echo "<script>alert('Error uploading image: $image_name');</script>";
                         }
                     }
                 }
@@ -80,7 +134,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             // Delete associated images
             $sql_delete_images = "DELETE FROM event_images WHERE event_id = $event_id";
             mysqli_query($con, $sql_delete_images);
-            
+
             $_SESSION['delete_message'] = "Event deleted successfully!";
             header('Location: AddEvents.php');
             exit;
@@ -99,6 +153,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/dashboard.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper/swiper-bundle.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -131,8 +186,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 <input type="date" class="form-control" id="date" name="date" value="<?php echo isset($edit_event) ? htmlspecialchars($edit_event['date']) : ''; ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="images">Event Images</label>
-                                <input type="file" class="form-control" id="images" name="images[]" accept="image/*" multiple required>
+                                <label for="images">Event Images (Select 3 Images)</label>
+                                <input type="file" class="form-control" id="images" name="images[]" accept="image/*" multiple <?php echo isset($edit_event) ? '' : 'required'; ?>>
                             </div>
 
                             <input type="hidden" name="event_id" value="<?php echo isset($edit_event) ? $edit_event['id'] : ''; ?>">
@@ -177,7 +232,13 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         $result_images = mysqli_query($con, $sql_images);
                                         echo "<td>";
                                         while ($image = mysqli_fetch_assoc($result_images)) {
-                                            echo "<img src='" . $image['image_path'] . "' alt='Event Image' style='width: 50px; height: 50px; margin: 2px;'>";
+                                            $image_path = $image['image_path'];
+                                            // Make sure the path is correct
+                                            if (file_exists($image_path)) {
+                                                echo "<img src='$image_path' alt='Event Image' style='width: 50px; height: 50px; margin: 2px;'>";
+                                            } else {
+                                                echo "<span>Image not found</span>";
+                                            }
                                         }
                                         echo "</td>";
 
@@ -201,12 +262,27 @@ if (strlen($_SESSION['alogin']) == 0) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+
 </body>
 <style>
 .header_black {
-    background: #242424;
-}
+        background: #242424;
+    }
 </style>
 </html>
 
