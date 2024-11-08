@@ -4,6 +4,7 @@ include('include/config.php');
 
 if (strlen($_SESSION['alogin']) == 0) {    
     header('location:index.php');
+    exit;
 } else {
     date_default_timezone_set('Asia/Kolkata');
     $currentTime = date('d-m-Y h:i:s A', time());
@@ -58,8 +59,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php include('header.php'); ?> <!-- Include header here -->
     <title>Manage Holiday Packages</title>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
@@ -79,18 +79,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 <body>
 <div id="container-wrapper">
     <!-- Sidebar Navigation -->
-    <div class="dashboard-nav-container">
-        <div class="dashboard-nav">
-        <ul class="dashboard-nav-list">
-                <li><a href="Banners.php"><i class="sl sl-icon-home"></i>Banners</a></li>  
-                <li><a href="welcome.php"><i class="sl sl-icon-home"></i> Add New Deals</a></li>
-                <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i>India Tour Packages</a></li>               
-                <li><a href="HolidayTheam.php"><i class="sl sl-icon-book-open"></i> Holiday Themes</a></li>
-                <li><a href="InternationalTour.php"><i class="sl sl-icon-globe"></i> International Tour </a></li>
-                <li><a href="Members.php" class="active"><i class="sl sl-icon-users"></i> Members</a></li>
-            </ul>
-        </div>
-    </div>
+    <?php include('sidebar.php'); ?> <!-- Include sidebar here -->
 
     <div id="dashboard">
         <!-- Sticky Navigation and Profile -->
@@ -239,9 +228,9 @@ if (strlen($_SESSION['alogin']) == 0) {
             font-size: 14px;
         }
     }
-    .header_black{
-            background:#242424;
-        }
+    .header_black {
+        background: #242424;
+    }
 </style>
 
 <?php } ?>

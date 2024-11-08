@@ -13,8 +13,8 @@ if (strlen($_SESSION['alogin']) == 0) {
     // Handle form submission to add or update a tour package
     if (isset($_POST['save_package'])) {
         $title = mysqli_real_escape_string($con, $_POST['title']);
-        $image_path = '';
-        
+        $imagePath = '';
+
         // Check if it's an update or new package addition
         if (isset($_POST['package_id']) && !empty($_POST['package_id'])) {
             $package_id = $_POST['package_id'];
@@ -26,7 +26,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                 $imageType = mime_content_type($imageTmpName);
                 $uploadFolder = 'uploads/';
 
-                // Check if it's a valid image
                 if (strpos($imageType, 'image') !== false) {
                     if (!is_dir($uploadFolder)) {
                         mkdir($uploadFolder, 0777, true);
@@ -114,117 +113,86 @@ if (strlen($_SESSION['alogin']) == 0) {
 <body>
 
 <div id="container-wrapper">
-    <div class="dashboard-nav-container">
-        <div class="dashboard-nav">
-        <ul class="dashboard-nav-list">
-                <li><a href="Banners.php"><i class="sl sl-icon-home"></i>Banners</a></li>  
-                <li><a href="welcome.php"><i class="sl sl-icon-home"></i> Add New Deals</a></li>
-                <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i>India Tour Packages</a></li>               
-                <li><a href="HolidayTheam.php"><i class="sl sl-icon-book-open"></i> Holiday Themes</a></li>
-                <li><a href="InternationalTour.php"><i class="sl sl-icon-globe"></i> International Tour </a></li>
-                <li><a href="Members.php" class="active"><i class="sl sl-icon-users"></i> Members</a></li>
-            </ul>
-        </div>
-    </div>
+    <!-- Include Sidebar -->
+    <?php include('sidebar.php'); ?>
 
-    <div id="dashboard">
-        <div class="dashboard-sticky-nav header_black">
-            <div class="content-left pull-left">
-                <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
-            </div>
-            <div class="content-right pull-right">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <div class="profile-sec">
-                        <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
+    <!-- Include Header -->
+    <?php include('header.php'); ?>
+
+    <div class="dashboard-content">
+        <div class="row">
+            <section class="top-deals">
+                <div class="container">
+                    <div class="section-title title-full">
+                        <h2><?php echo isset($edit_package) ? 'Edit' : 'Add a New'; ?> <span>International Tour Package</span></h2>
+                    </div>
+                    <form action="InternationalTour.php" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="title">Package Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="<?php echo isset($edit_package) ? htmlspecialchars($edit_package['title']) : ''; ?>" required>
                         </div>
-                    </a>
+                        <div class="form-group">
+                            <label for="image">Package Image</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            <?php if (isset($edit_package) && $edit_package['image_url']): ?>
+                                <img src="<?php echo $edit_package['image_url']; ?>" alt="Current Image" style="width: 100px; margin-top: 10px;">
+                            <?php endif; ?>
+                        </div>
+                        <input type="hidden" name="package_id" value="<?php echo isset($edit_package) ? $edit_package['id'] : ''; ?>">
+                        <button type="submit" class="btn btn-primary" name="save_package">
+                            <?php echo isset($edit_package) ? 'Update Package' : 'Add Package'; ?>
+                        </button>
+                    </form>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <div class="dashboard-content">
-            <div class="row">
-
-                <section class="top-deals">
-                    <div class="container">
-                        <div class="section-title title-full">
-                            <h2><?php echo isset($edit_package) ? 'Edit' : 'Add a New'; ?> <span>International Tour Package</span></h2>
-                        </div>
-
-                        <form action="InternationalTour.php" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="title">Package Title</label>
-                                <input type="text" class="form-control" id="title" name="title" value="<?php echo isset($edit_package) ? htmlspecialchars($edit_package['title']) : ''; ?>" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="image">Package Image</label>
-                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                                <?php if (isset($edit_package) && $edit_package['image_url']): ?>
-                                    <img src="<?php echo $edit_package['image_url']; ?>" alt="Current Image" style="width: 100px; margin-top: 10px;">
-                                <?php endif; ?>
-                            </div>
-
-                            <input type="hidden" name="package_id" value="<?php echo isset($edit_package) ? $edit_package['id'] : ''; ?>">
-                            <button type="submit" class="btn btn-primary" name="save_package">
-                                <?php echo isset($edit_package) ? 'Update Package' : 'Add Package'; ?>
-                            </button>
-                        </form>
+            <section class="package-list">
+                <div class="container">
+                    <div class="section-title title-full">
+                        <h2>Manage <span>Tour Packages</span></h2>
                     </div>
-                </section>
+                    <table class="table table-bordered table-custom">
+                        <thead>
+                            <tr>
+                                <th>Package Title</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $sql_packages = "SELECT * FROM international_tours";
+                            $result_packages = mysqli_query($con, $sql_packages);
 
-                <section class="package-list">
-                    <div class="container">
-                        <div class="section-title title-full">
-                            <h2>Manage <span>Tour Packages</span></h2>
-                        </div>
-
-                        <table class="table table-bordered table-custom">
-                            <thead>
-                                <tr>
-                                    <th>Package Title</th>
-                                    <th>Image</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $sql_packages = "SELECT * FROM international_tours";
-                                $result_packages = mysqli_query($con, $sql_packages);
-                                 
-                                if (mysqli_num_rows($result_packages) > 0) {
-                                    while ($package = mysqli_fetch_assoc($result_packages)) {
-                                        echo "<tr>";
-                                        echo "<td>" . htmlspecialchars($package['title']) . "</td>";
-                                      
-                                        echo "<td><img src='" . $package['image_url'] . "' alt='" . htmlspecialchars($package['title']) . "' style='width: 100px;'></td>";
-                                        echo "<td>
-                                            <a href='InternationalTour.php?edit_id=" . $package['id'] . "' class='btn btn-warning'>Edit</a>
-                                            <a href='InternationalTour.php?delete_id=" . $package['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this package?\")'>Delete</a>
-                                        </td>";
-                                        echo "</tr>";
-                                    }
-                                } else {
-                                    echo "<tr><td colspan='4' class='no-data'>No packages available.</td></tr>";
+                            if (mysqli_num_rows($result_packages) > 0) {
+                                while ($package = mysqli_fetch_assoc($result_packages)) {
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($package['title']) . "</td>";
+                                    echo "<td><img src='" . $package['image_url'] . "' alt='" . htmlspecialchars($package['title']) . "' style='width: 100px;'></td>";
+                                    echo "<td>
+                                        <a href='InternationalTour.php?edit_id=" . $package['id'] . "' class='btn btn-warning'>Edit</a>
+                                        <a href='InternationalTour.php?delete_id=" . $package['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this package?\")'>Delete</a>
+                                    </td>";
+                                    echo "</tr>";
                                 }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-            </div>
+                            } else {
+                                echo "<tr><td colspan='3' class='no-data'>No packages available.</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 <style>
-.header_black{
-            background:#242424;
-        }
+.header_black {
+    background: #242424;
+}
 </style>
 </html>
 

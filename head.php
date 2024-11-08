@@ -88,7 +88,7 @@
                                         <li><a href="car-grid-view.html">Gallery</a></li>
                                         <li><a href="car-list-view.html">Guest Feedback</a></li>
                                         <li><a href="car-detail.html">Our Blogs</a></li>
-                                        <li><a href="car-booking.html">Events</a></li>
+                                        <li><a href="events.php">Events</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu dropdown">

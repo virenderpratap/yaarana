@@ -711,10 +711,10 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
             <div class="row top-deal-slider">
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending7.jpg" alt="image">
+                        <img src="images/111.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> United Kingdom</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> China</h6>
                         <h4><a href="#">Earning Asiana Club Miles</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">
@@ -724,10 +724,10 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
                 </div>
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending8.jpg" alt="image">
+                        <img src="images/japan.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Japan</h6>
                         <h4><a href="#">Save big on hotels!</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">
@@ -737,10 +737,10 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
                 </div>
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending9.jpg" alt="image">
+                        <img src="images/444.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> South Korea</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
                         <h4><a href="#">Experience Europe Your Way</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">
@@ -750,7 +750,7 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
                 </div>
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending10.jpg" alt="image">
+                        <img src="images/germny.jpg" alt="image">
                     </div>
                     <div class="slider-content">
                         <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Germany</h6>
@@ -776,25 +776,19 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
             <div class="dest-partner">
                 <div class="row partner-slider">
                     <div class="col-md-2">
-                        <img src="images/gpayy.jpg" alt="partners">
+                        <img src="images/gpayyy.png" alt="partners">
                     </div>
                     <div class="col-md-2">
                         <img src="images/paytmm.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/masterCard.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/visa.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
-                    </div>
-                    <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
-                    </div>
-                    <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/PayPal.png" alt="partners">
                     </div>
                 </div>
             </div>
@@ -911,6 +905,9 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
         </div>
     </div>
 
+
+
+    <!-- ------paynow section-------------------------------------------- -->
     <div class="modal fade formcontainer" id="register" role="dialog">
         <div class="modal-dialog">
             <div class="row">

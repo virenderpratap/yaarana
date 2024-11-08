@@ -95,36 +95,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 <!-- Start Container Wrapper -->
 <div id="container-wrapper">
     <!-- Sidebar Navigation -->
-    <div class="dashboard-nav-container">
-        <div class="dashboard-nav">
-            <ul class="dashboard-nav-list">
-                <li><a href="Banners.php" class="active"><i class="sl sl-icon-home"></i> Banners</a></li>  
-                <li><a href="welcome.php"><i class="sl sl-icon-home"></i> Add New Deals</a></li>
-                <li><a href="/yaarana/cms/IndiaTour.php"><i class="sl sl-icon-book-open"></i> India Tour Packages</a></li>               
-                <li><a href="HolidayTheam.php"><i class="sl sl-icon-book-open"></i> Holiday Themes</a></li>
-                <li><a href="InternationalTour.php"><i class="sl sl-icon-globe"></i> International Tour </a></li>
-                <li><a href="Members.php"><i class="sl sl-icon-book-open"></i> Members</a></li>
-            </ul>
-        </div>
-    </div>
+    <?php include('sidebar.php'); ?>
 
     <!-- Dashboard Main Content -->
     <div id="dashboard">
         <!-- Sticky Navigation -->
-        <div class="dashboard-sticky-nav header_black">
-            <div class="content-left pull-left">
-                <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
-            </div>
-            <div class="content-right pull-right">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <div class="profile-sec">
-                        <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <?php include('header.php'); ?>
 
         <!-- Dashboard Content -->
         <div class="dashboard-content">
@@ -195,13 +171,18 @@ if (strlen($_SESSION['alogin']) == 0) {
 </div>
 
 </body>
-<style>
-     .header_black{
-            background:#242424;
-        }
-</style>
-    </style>
 </html>
+
+<style>
+    .header_black {
+        background: #242424;
+    }
+    .table-custom img {
+        width: 100px;
+        height: auto;
+        border-radius: 8px;
+    }
+</style>
 <?php
 }
 ?>
