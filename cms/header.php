@@ -1,7 +1,7 @@
 <!-- header.php -->
 <div class="dashboard-sticky-nav header_black">
     <div class="content-left pull-left">
-        <a href="dashboard.html"><img src="../images/logo-black.png" alt="logo"></a>
+        <a href="/yaarana/index.php"><img src="../images/logo-black.png" alt="logo"></a>
     </div>
     <div class="content-right pull-right">
         <div class="dropdown">

@@ -82,7 +82,7 @@
             <div class="container">
                 <div class="pay-main display-flex space-between">
                     <div class="footer-logo pull-left">
-                        <a href="index.html"><img src="images/logo-black.png" alt="image"></a>
+                        <a href="index.html"><img style="width: 60%" src="images/logo-black.png" alt="image"></a>
                     </div>
                     <div class="footer-payment-nav pull-right">
                     <ul>

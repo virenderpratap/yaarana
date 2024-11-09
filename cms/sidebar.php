@@ -1,5 +1,4 @@
-<!-- sidebar.php -->
-<div class="dashboard-nav-container">
+<div id="sidebar" class="dashboard-nav-container">
     <div class="dashboard-nav">
         <ul class="dashboard-nav-list">
             <li><a href="Banners.php"><i class="sl sl-icon-home"></i>Banners</a></li>  
@@ -9,7 +8,6 @@
             <li><a href="InternationalTour.php"><i class="sl sl-icon-globe"></i> International Tour </a></li>
             <li><a href="Members.php" class="active"><i class="sl sl-icon-users"></i> Members</a></li>
             <li><a href="AddEvents.php" class="active"><i class="sl sl-icon-users"></i> Events</a></li>
-
         </ul>
     </div>
 </div>

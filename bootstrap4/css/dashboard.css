@@ -1297,7 +1297,6 @@ mark {
 .demo h1, .demo h2, .demo h3, .demo h4, .demo h5, .demo h6 {
     line-height: 40px;
 }
-/
 /* ---------------------------------- */
 
 /* Info Box
@@ -3687,7 +3686,7 @@ a.close-list-item {
         text-align: left;
     }
     .dashboard-list-box .button.gray {
-        margin-top: 6px:
+        margin-top: 6px;
     }
 }
 /* ------------------------------------------------------------------- */
