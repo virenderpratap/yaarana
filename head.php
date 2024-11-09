@@ -27,6 +27,8 @@
                         </li>
                         <li class="green-toper"><a href="#" data-toggle="modal" data-target="#login"><i class="fa fa-phone-alt"></i> Enquire</a></li>
                         <li class="green-toper"><a href="#" data-toggle="modal" data-target="#register"><i class="fa fa-sign-out-alt"></i> Pay Now</a></li>
+                        <li class="green-toper"><a href="cms/LoginForm.php" ><i class="fa fa-sign-out-alt"></i>login</a></li>
+
                         <li>
                             <div class="header_sidemenu">
                                 <div class="menu">
@@ -86,14 +88,14 @@
                                         <li><a href="car-grid-view.html">Gallery</a></li>
                                         <li><a href="car-list-view.html">Guest Feedback</a></li>
                                         <li><a href="car-detail.html">Our Blogs</a></li>
-                                        <li><a href="car-booking.html">Events</a></li>
+                                        <li><a href="events.php">Events</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu dropdown">
                                     <a href="index-cars.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Holiday Theme <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu flts-yaarana">
                                         <div class="div1">
-                                            <li><a href="">Family trip</a></li>
+                                            <li><a href="FamilyTrip.php">Family trip</a></li>
                                             <li><a href="">Honeymoon Trip</a></li>
                                             <li><a href="">Winter Holiday</a></li>
                                             <li><a href="">Wildlife</a></li>

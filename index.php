@@ -28,53 +28,55 @@
 <body>
     <?php include "head.php" ?>
 
-    <!-- banner starts -->
-    <section class="banner">
-        <div class="slider slide-height">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/christmas-offer.jpg)"></div>
-                            <!-- <div class="swiper-content">
-                                <h1>Make you Free to <span>travel</span> with us</h1>
-                                <p class="mar-bottom-20">Foresee the pain and trouble that are bound to ensue and equal fail in their duty through weakness. </p>
-                                <a href="" class="biz-btn">Explore More</a>
-                                <a href="" class="biz-btn mar-left-10">Contact Us</a>
-                            </div>  -->
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/new-year-offer.jpg)"></div>
 
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/ban2.jpg)"></div>
 
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/slider/slider3.jpg)"></div>
 
-                            <div class="overlay"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+
+
+<!-- banner starts -->
+<?php include ('cms/include/config.php'); ?>
+<section class="banner">
+    <div class="slider slide-height">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <?php
+                // Retrieve banners from the database
+                $sql_banners = "SELECT * FROM banners";
+                $result_banners = mysqli_query($con, $sql_banners);
+
+                if (mysqli_num_rows($result_banners) > 0) {
+                    // Loop through each banner and create a slide
+                    while ($banner = mysqli_fetch_assoc($result_banners)) {
+                        // Assuming the image path is stored relative to 'cms/uploads/'
+                        $imagePath = 'cms/' . $banner['image_path'];
+                        echo '
+                        <div class="swiper-slide">
+                            <div class="slide-inner">
+                                <div class="slide-image" style="background-image: url(' . htmlspecialchars($imagePath) . ')"></div>
+                                <div class="overlay"></div>
+                            </div>
+                        </div>';
+                    }
+                } else {
+                    echo '<p>No banners available.</p>';
+                }
+                ?>
             </div>
-
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-    </section>
-    <!-- banner ends -->
+    </div>
+</section>
+<!-- banner ends -->
+
+
+
+
+
+
+
+    
 
     <!-- form starts -->
     <?php include "index-form.php" ?>
@@ -85,132 +87,61 @@
     <!-- top deal ends -->
 
     <!-- holiday Themes starts -->
+
     <section class="top-destinations top-desti1">
-        <div class="container">
-            <div class="section-title title-full">
-                <h2 class="mar-0">Holiday  <span>Themes Special</span></h2>
-            </div>
-            <div class="content">
-                <div class="row ">
-                    <div class="col-md-6">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="holiday-yaarana-theme">
-                                <img src="images/family.jpg" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Family Tour Packages</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/honeymoon.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> Honeymoon</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/pilgrimage.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> Pilgrimage Tour</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-5">
-                        <div class="row">
-                            <div class="col-md-6 mt-5">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/india-tour.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> India Tour </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-5">
-                                <div class="td-item box-shadow-0 border-0">
-                                    <div class="holiday-yaarana-theme">
-                                        <img src="images/adventures.jpg" alt="image">
-                                    </div>
-                                    <div class="td-content">
-                                        <div class="rating mar-bottom-15">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                        </div>
-                                        <h3><i class="fa fa-map-marker-alt"></i> Adventure</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6 mt-7">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="holiday-yaarana-theme">
-                                <img src="images/friends.jpg" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Friends Tour Packages</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+    <div class="container">
+        <div class="section-title title-full">
+            <h2 class="mar-0">Holiday <span>Themes Special</span></h2>
         </div>
-    </section>
-    <!-- holiday Themes ends -->
+        <div class="grid-container">
+            <?php
+            // Fetching packages from database
+            $conn = new mysqli('localhost', 'root', '', 'yaarana2');
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT * FROM holiday_packages ORDER BY created_at DESC LIMIT 6";
+            $result = $conn->query($sql);
 
+            if ($result->num_rows > 0) {
+                $i = 1;
+                while ($row = $result->fetch_assoc()) {
+                    $class = ($i % 2 == 0) ? "package-small" : "package-large";
+                    ?>
+                    <div class="package-item <?php echo $class; ?>">
+                        <div class="td-item box-shadow-0 border-0">
+                            <div class="holiday-yaarana-theme">
+                                <img src="cms/uploads/<?php echo basename($row['image']); ?>" alt="image">
+                            </div>
+                            <div class="td-content">
+                                <div class="rating mar-bottom-15">
+                                    <?php for ($j = 0; $j < 5; $j++) {
+                                        echo '<span class="fa fa-star checked"></span>';
+                                    } ?>
+                                </div>
+                                <h3><i class="fa fa-map-marker-alt"></i> <?php echo $row['package_name']; ?></h3>
+                                <p><?php echo $row['description']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    $i++;
+                }
+            } else {
+                echo "<p>No holiday packages available.</p>";
+            }
+            $conn->close();
+            ?>
+        </div>
+    </div>
+</section>
+<!-- holiday Themes ends -->
+
+
+
+
+
+    
     <!-- banner starts -->
     <section class="search-banner display-flex">
         <div class="slider video-slider">
@@ -244,108 +175,47 @@
         </div>
     </section>
     <!-- banner ends -->
-    <!-- india packages starts -->
-    <section class="top-destinations top-desti2">
-        <div class="container">
-            <div class="section-title">
-                <h2>India <span> Tour Packages</span></h2>
-                <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/himachal.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Himachal</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/package2.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Spiti</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/uttarakhand.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Uttarakhand</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/kerala.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Kerala</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/nainital.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Kashmir</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/rajasthan.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Rajasthan</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/goa.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Goa</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/meghalaya.png" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Meghalaya</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <?php
+// Fetch packages for the "India Tour Packages" section
+$sql_india_packages = "SELECT * FROM india_tours";
+$result_india_packages = mysqli_query($con, $sql_india_packages);
+?>
+
+<!-- India Packages Section -->
+<section class="top-destinations top-desti2">
+    <div class="container">
+        <div class="section-title">
+            <h2>India <span>Tour Packages</span></h2>
+            <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
+        </div>
+        <div class="content">
+            <div class="row">
+                <?php
+                // Loop through each India package and display it
+                if (mysqli_num_rows($result_india_packages) > 0) {
+                    while ($package = mysqli_fetch_assoc($result_india_packages)) {
+                        echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
+                        echo '    <div class="td-item">';
+                        echo '        <div class="td-image">';
+                        echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
+                        echo '        </div>';
+                        echo '        <p class="price white">trending</p>';
+                        echo '        <div class="td-content">';
+                        echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
+                        echo '        </div>';
+                        echo '    </div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No India packages available at the moment.</p>';
+                }
+                ?>
             </div>
         </div>
-    </section>
-    <!-- india packages ends -->
+    </div>
+</section>
+<!-- India Packages Ends -->
+
     <!-- Trending Starts -->
     <section class="trending pad-bottom-50 bg-grey">
         <div class="container">
@@ -537,108 +407,68 @@
         </div>
     </section>
     <!-- Trending Ends -->
-    <!-- international packages starts -->
-    <section class="top-destinations top-desti2">
-        <div class="container">
-            <div class="section-title">
-                <h2>International <span> Tour Packages</span></h2>
-                <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/VIETNAM.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Vietnam</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/bali.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Bali</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/thailand.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Thailand</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/mauritius.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Mauritius</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/Singapore.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Singapore</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/maldives.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Maldives</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/dubai.jpg" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Dubai</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">
-                        <div class="td-item td-item">
-                            <div class="td-image">
-                                <img src="images/package/malaysia.webp" alt="image">
-                            </div>
-                            <p class="price white">trending</span></p>
-                            <div class="td-content">
-                                <h3><i class="fa fa-map-marker-alt"></i>Malaysia</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+    
+    <?php
+// Fetch packages for the "International Tour Packages" section
+$sql_international_packages = "SELECT * FROM international_tours";
+$result_international_packages = mysqli_query($con, $sql_international_packages);
+?>
+
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>International Tour Packages</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- International Packages Section -->
+<section class="top-destinations top-desti2">
+    <div class="container">
+        <div class="section-title">
+            <h2>International <span>Tour Packages</span></h2>
+            <p>Dive into the spiritual heart of the world, visiting breathtaking destinations and experiencing vibrant cultures.</p>
+        </div>
+        <div class="content">
+            <div class="row">
+                <?php
+                // Loop through each international package and display it
+                if (mysqli_num_rows($result_international_packages) > 0) {
+                    while ($package = mysqli_fetch_assoc($result_international_packages)) {
+                        echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
+                        echo '    <div class="td-item">';
+                        echo '        <div class="td-image">';
+                        echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
+                        echo '        </div>';
+                        echo '        <p class="price white">trending</p>';
+                        echo '        <div class="td-content">';
+                        echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
+                        echo '        </div>';
+                        echo '    </div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No international packages available at the moment.</p>';
+                }
+                ?>
             </div>
         </div>
-    </section>
-    <!-- international packages ends -->
+    </div>
+</section>
+
+<!-- International Packages Ends -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+    
     <!-- top destination starts -->
     <section class="top-destinations top-desti1">
         <div class="container">
@@ -800,7 +630,7 @@
     </section>
     <!-- why us ends -->
     <!-- tour agents starts -->
-    <section class="tour-agent tour-agent1">
+    <!-- <section class="tour-agent tour-agent1">
         <div class="container">
             <div class="row display-flex">
                 <div class="col-md-4 col-xs-12">
@@ -850,8 +680,13 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- tour agents Ends -->
+
+     <!-- tour agents Start -->
+      <?php include "MembersDashboard.php"?>
+     <!-- tour agents Start -->
+
 
 
 
@@ -870,16 +705,16 @@
     <section class="top-deals">
         <div class="container">
             <div class="section-title">
-                <h2>Today's Top Deals</h2>
+                <h2>Most Popular Packages</h2>
                 <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
             </div>
             <div class="row top-deal-slider">
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending7.jpg" alt="image">
+                        <img src="images/111.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> United Kingdom</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> China</h6>
                         <h4><a href="#">Earning Asiana Club Miles</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">
@@ -889,10 +724,10 @@
                 </div>
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending8.jpg" alt="image">
+                        <img src="images/japan.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i>Japan</h6>
                         <h4><a href="#">Save big on hotels!</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">
@@ -902,10 +737,10 @@
                 </div>
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending9.jpg" alt="image">
+                        <img src="images/444.jpg" alt="image">
                     </div>
                     <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> South Korea</h6>
+                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
                         <h4><a href="#">Experience Europe Your Way</a></h4>
                         <p>With upto 30% Off, experience Europe your way!</p>
                         <div class="deal-price">
@@ -915,7 +750,7 @@
                 </div>
                 <div class="col-md-4 slider-item">
                     <div class="slider-image">
-                        <img src="images/trending10.jpg" alt="image">
+                        <img src="images/germny.jpg" alt="image">
                     </div>
                     <div class="slider-content">
                         <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Germany</h6>
@@ -935,31 +770,25 @@
     <section class="partners bg-grey">
         <div class="container">
             <div class="section-title">
-                <h2>Our Awesome Parnters</h2>
+                <h2>Payment Methods</h2>
                 <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
             </div>
             <div class="dest-partner">
                 <div class="row partner-slider">
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/gpayyy.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/paytmm.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/masterCard.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/visa.png" alt="partners">
                     </div>
                     <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
-                    </div>
-                    <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
-                    </div>
-                    <div class="col-md-2">
-                        <img src="images/cl-3.png" alt="partners">
+                        <img src="images/PayPal.png" alt="partners">
                     </div>
                 </div>
             </div>
@@ -1076,6 +905,9 @@
         </div>
     </div>
 
+
+
+    <!-- ------paynow section-------------------------------------------- -->
     <div class="modal fade formcontainer" id="register" role="dialog">
         <div class="modal-dialog">
             <div class="row">
@@ -1244,5 +1076,45 @@
     <script src="js/custom-date.js"></script>
 
 </body>
+<style>
+  /* Grid container for the tile layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusts for responsive layout */
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px;
+}
+
+/* Style for larger packages */
+.package-large .holiday-yaarana-theme img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Style for smaller packages */
+.package-small .holiday-yaarana-theme img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Shared styles for package items */
+.package-item {
+    transition: transform 0.3s ease-in-out;
+}
+
+.package-item:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Stack items on smaller screens */
+    }
+}
+
+</style>
 
 </html>
