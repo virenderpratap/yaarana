@@ -82,12 +82,13 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav" id="responsive-menu">
                                 <li class="submenu dropdown">
-                                    <a href="index-cars.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About Us <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="index-cars.html">Our Team</a></li>
-                                        <li><a href="car-grid-view.html">Gallery</a></li>
-                                        <li><a href="car-list-view.html">Guest Feedback</a></li>
-                                        <li><a href="car-detail.html">Our Blogs</a></li>
+                                        <li><a href="AboutUs.php">About Us</a></li>
+                                        <li><a href="show_team.php">Our Team</a></li>
+                                        <li><a href="gallery.php">Gallery</a></li>
+                                        <li><a href="Show_Guest_Feedback.php">Guest Feedback</a></li>
+                                        <li><a href="Blogs.php">Our Blogs</a></li>
                                         <li><a href="events.php">Events</a></li>
                                     </ul>
                                 </li>
@@ -95,24 +96,24 @@
                                     <a href="index-cars.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Holiday Theme <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu flts-yaarana">
                                         <div class="div1">
-                                            <li><a href="FamilyTrip.php">Family trip</a></li>
-                                            <li><a href="">Honeymoon Trip</a></li>
-                                            <li><a href="">Winter Holiday</a></li>
-                                            <li><a href="">Wildlife</a></li>
-                                            <li><a href="">Golden Triangle Tour</a></li>
-                                            <li><a href="">Hill Station Tour</a></li>
-                                            <li><a href="">Adventure Trip</a></li>
-                                            <li><a href="">Himachal Volvo</a></li>
-                                            <li><a href="">Friends Squad</a></li>
-                                            <li><a href="">Female Special</a></li>
-                                            <li><a href="">Trekking Tours</a></li>
-                                            <li><a href="">Kerala Honeymoon</a></li>
+                                            <li><a href="Family-trip.php">Family trip</a></li>
+                                            <li><a href="Honeymoon-trip.php">Honeymoon Trip</a></li>
+                                            <li><a href="winter-holidays.php">Winter Holiday</a></li>
+                                            <li><a href="wildlife.php">Wildlife</a></li>
+                                            <li><a href="golden-triangle-tour.php">Golden Triangle Tour</a></li>
+                                            <li><a href="hill-station-tour.php">Hill Station Tour</a></li>
+                                            <li><a href="adventure-tour.php">Adventure Trip</a></li>
+                                            <li><a href="himachal-volvo.php">Himachal Volvo</a></li>
+                                            <li><a href="friends-squad.php">Friends Squad</a></li>
+                                            <li><a href="female-special.php">Female Special</a></li>
+                                            <li><a href="trekking-tours.php">Trekking Tours</a></li>
+                                            <li><a href="kerala-honeymoon.php">Kerala Honeymoon</a></li>
 
                                         </div>
                                         <div class="div2">
-                                            <li><a href="">Kashmir Honeymoon</a></li>
-                                            <li><a href="">Women's Special</a></li>
-                                            <li><a href="">BBH Luxury Package</a></li>
+                                            <li><a href="kashmir-honeymoon.php">Kashmir Honeymoon</a></li>
+                                            <li><a href="women-special.php">Women's Special</a></li>
+                                            <li><a href="bbh-luxury-package.php">BBH Luxury Package</a></li>
                                             <li><a href="">BBH Group Tour Package</a></li>
                                             <li><a href="">North East Tour Package</a></li>
                                             <li><a href="">Himachal Honeymoon</a></li>
@@ -128,27 +129,25 @@
                                     <a href="index-cars.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Domestic Tour <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu flts-yaarana">
                                         <div class="div1">
-                                            <li><a href="">Himachal</a></li>
-                                            <li><a href="">Ladakh</a></li>
-                                            <li><a href="">Kashmir</a></li>
-                                            <li><a href="">Ladakh</a></li>
-                                            <li><a href="">Kashmir</a></li>
-                                            <li><a href="">Kerala</a></li>
-                                            <li><a href="">Goa</a></li>
-                                            <li><a href="">Gujrat</a></li>
-                                            <li><a href="">Uttarakhand</a></li>
+                                            <li><a href="himachal.php">Himachal</a></li>
+                                            <li><a href="ladakh.php">Ladakh</a></li>
+                                            <li><a href="kashmir.php">Kashmir</a></li>
+                                            <li><a href="kerala.php">Kerala</a></li>
+                                            <li><a href="goa.php">Goa</a></li>
+                                            <li><a href="gujrat.php">Gujrat</a></li>
+                                            <li><a href="uttarakhand.php">Uttarakhand</a></li>
 
 
                                         </div>
                                         <div class="div2">
-                                            <li><a href="">Karnataka</a></li>
-                                            <li><a href="">Sikkim / Assam</a></li>
-                                            <li><a href="">Rajasthan</a></li>
-                                            <li><a href="">Maharashtra</a></li>
-                                            <li><a href="">Tamil Nadu</a></li>
-                                            <li><a href="">Uttar Pradesh</a></li>
-                                            <li><a href="">Meghalaya</a></li>
-                                            <li><a href="">Andaman & Nicobar</a></li>
+                                            <li><a href="karnataka.php">Karnataka</a></li>
+                                            <li><a href="sikkim-assam.php">Sikkim / Assam</a></li>
+                                            <li><a href="rajasthan.php">Rajasthan</a></li>
+                                            <li><a href="maharashtra.php">Maharashtra</a></li>
+                                            <li><a href="tamil-nadu.php">Tamil Nadu</a></li>
+                                            <li><a href="uttar-pradesh.php">Uttar Pradesh</a></li>
+                                            <li><a href="meghalaya.php">Meghalaya</a></li>
+                                            <li><a href="andaman-&-nicobar.php">Andaman & Nicobar</a></li>
                                         </div>
                                     </ul>
 
@@ -157,22 +156,21 @@
                                     <a href="index-cars.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">International Tours <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu flts-yaarana">
                                         <div class="div1">
-                                            <li><a href="">Vietnam</a></li>
-                                            <li><a href="">Nepal</a></li>
-                                            <li><a href="">Bhutan</a></li>
-                                            <li><a href="">Bali</a></li>
-                                            <li><a href="">Sri Lanka</a></li>
-                                            <li><a href="">Thailand</a></li>
-                                            <li><a href="">Goa</a></li>
-                                            <li><a href="">Maldives</a></li>
+                                            <li><a href="vietnam.php">Vietnam</a></li>
+                                            <li><a href="nepal.php">Nepal</a></li>
+                                            <li><a href="bhutan.php">Bhutan</a></li>
+                                            <li><a href="bali.php">Bali</a></li>
+                                            <li><a href="sri-lanka.php">Sri Lanka</a></li>
+                                            <li><a href="thailand.php">Thailand</a></li>
+                                            <li><a href="maldives.php">Maldives</a></li>
 
 
                                         </div>
                                         <div class="div2">
-                                            <li><a href="">Mauritius</a></li>
-                                            <li><a href="">Dubai</a></li>
-                                            <li><a href="">Malaysia</a></li>
-                                            <li><a href="">Singapore</a></li>
+                                            <li><a href="mauritius.php">Mauritius</a></li>
+                                            <li><a href="dubai.php">Dubai</a></li>
+                                            <li><a href="malaysia.php">Malaysia</a></li>
+                                            <li><a href="singapore.php">Singapore</a></li>
 
                                         </div>
                                     </ul>

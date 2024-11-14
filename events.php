@@ -95,6 +95,38 @@
             display: flex;
             justify-content: right;
         }
+
+        /* Preloader styling */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #status {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #fff;
+            border-radius: 50%;
+            border-top: 5px solid transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 
 </head>
@@ -114,7 +146,7 @@
                 <h2 class="white">Events From Yaarana</h2>
                 <nav aria-label="breadcrumb">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Car Booking</li>
                     </ul>
                 </nav>
@@ -131,6 +163,14 @@
     // Query to fetch events from the database
     $sql_events = "SELECT * FROM events ORDER BY date DESC";
     $result_events = mysqli_query($con, $sql_events);
+
+    // Define truncateText function
+    function truncateText($text, $length = 120) {
+        if (strlen($text) > $length) {
+            return substr($text, 0, $length) . '...';
+        }
+        return $text;
+    }
     ?>
 
     <!-- Events Section -->
@@ -151,11 +191,11 @@
                         $event_id = $event['id'];
                         $sql_images = "SELECT image_path FROM event_images WHERE event_id = $event_id";
                         $result_images = mysqli_query($con, $sql_images);
-                        
+
                         // Start the event card
                         echo '<div class="col-md-4">
                                 <div class="event-card">';
-                        
+
                         // Display carousel if images are available
                         if (mysqli_num_rows($result_images) > 0) {
                             echo '<div id="carousel-' . $event_id . '" class="carousel slide" data-bs-ride="carousel">
@@ -181,14 +221,18 @@
                                   </div>';
                         }
 
-                        // Event details
+                        // Event details with truncated text
                         echo '
                             <h3 class="event-title">' . htmlspecialchars($event['title']) . '</h3>
                             <p class="event-date"><i class="far fa-calendar-alt"></i> ' . date("F j, Y", strtotime($event['date'])) . '</p>
-                            <p class="event-content">' . htmlspecialchars($event['content']) . '</p>';
-
-                        // Learn more button
-                        echo '<a href="#" class="btn btn-primary">Learn More</a>';
+                            <p id="truncated-' . $event['id'] . '" class="event-content">
+                                ' . truncateText(htmlspecialchars($event['content'])) . '
+                            </p>
+                            <p id="content-' . $event['id'] . '" class="event-content" style="display: none;">
+                                ' . htmlspecialchars($event['content']) . '
+                            </p>
+                            <button onclick="toggleContent(' . $event['id'] . ')" class="btn btn-primary">Show More</button>
+                        ';
 
                         // Close event card
                         echo '</div>
@@ -219,7 +263,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom Scripts -->
-    <script src="js/main.js"></script>
+    <script>
+      
+let domContentLoaded = false;
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    domContentLoaded = true;
+    checkPreloader();
+});
+
+// Function to check if both conditions are true
+function checkPreloader() {
+    if (domContentLoaded) {
+        setTimeout(function() {
+            document.getElementById('preloader').style.display = 'none';
+        }, 1000); 
+    }
+}
+
+// Fallback in case the DOM content takes too long to load (optional)
+window.onload = function() {
+    checkPreloader(); // Check preloader again in case window.onload fires late
+}
+
+
+        function toggleContent(eventId) {
+            const content = document.getElementById('content-' + eventId);
+            const truncatedContent = document.getElementById('truncated-' + eventId);
+
+            if (content.style.display === "none") {
+                content.style.display = "block";
+                truncatedContent.style.display = "none";
+            } else {
+                content.style.display = "none";
+                truncatedContent.style.display = "block";
+            }
+        }
+    </script>
 
 </body>
 

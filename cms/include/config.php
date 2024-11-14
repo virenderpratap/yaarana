@@ -10,7 +10,7 @@ if (!defined('DB_PASS')) {
     define('DB_PASS', '');
 }
 if (!defined('DB_NAME')) {
-    define('DB_NAME', 'yaarana2');
+    define('DB_NAME', 'yaarana');
 }
 
 // Establish the connection using $con only if it's not already set

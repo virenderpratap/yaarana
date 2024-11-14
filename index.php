@@ -33,42 +33,42 @@
 
 
 
-<!-- banner starts -->
-<?php include ('cms/include/config.php'); ?>
-<section class="banner">
-    <div class="slider slide-height">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <?php
-                // Retrieve banners from the database
-                $sql_banners = "SELECT * FROM banners";
-                $result_banners = mysqli_query($con, $sql_banners);
+    <!-- banner starts -->
+    <?php include('cms/include/config.php'); ?>
+    <section class="banner">
+        <div class="slider slide-height">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <?php
+                    // Retrieve banners from the database
+                    $sql_banners = "SELECT * FROM banners";
+                    $result_banners = mysqli_query($con, $sql_banners);
 
-                if (mysqli_num_rows($result_banners) > 0) {
-                    // Loop through each banner and create a slide
-                    while ($banner = mysqli_fetch_assoc($result_banners)) {
-                        // Assuming the image path is stored relative to 'cms/uploads/'
-                        $imagePath = 'cms/' . $banner['image_path'];
-                        echo '
+                    if (mysqli_num_rows($result_banners) > 0) {
+                        // Loop through each banner and create a slide
+                        while ($banner = mysqli_fetch_assoc($result_banners)) {
+                            // Assuming the image path is stored relative to 'cms/uploads/'
+                            $imagePath = 'cms/' . $banner['image_path'];
+                            echo '
                         <div class="swiper-slide">
                             <div class="slide-inner">
                                 <div class="slide-image" style="background-image: url(' . htmlspecialchars($imagePath) . ')"></div>
                                 <div class="overlay"></div>
                             </div>
                         </div>';
+                        }
+                    } else {
+                        echo '<p>No banners available.</p>';
                     }
-                } else {
-                    echo '<p>No banners available.</p>';
-                }
-                ?>
+                    ?>
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
-            <!-- Add Arrows -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
         </div>
-    </div>
-</section>
-<!-- banner ends -->
+    </section>
+    <!-- banner ends -->
 
 
 
@@ -76,7 +76,7 @@
 
 
 
-    
+
 
     <!-- form starts -->
     <?php include "index-form.php" ?>
@@ -89,59 +89,55 @@
     <!-- holiday Themes starts -->
 
     <section class="top-destinations top-desti1">
-    <div class="container">
-        <div class="section-title title-full">
-            <h2 class="mar-0">Holiday <span>Themes Special</span></h2>
-        </div>
-        <div class="grid-container">
-            <?php
-            // Fetching packages from database
-            $conn = new mysqli('localhost', 'root', '', 'yaarana2');
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            $sql = "SELECT * FROM holiday_packages ORDER BY created_at DESC LIMIT 6";
-            $result = $conn->query($sql);
+        <div class="container">
+            <div class="section-title title-full">
+                <h2 class="mar-0">Holiday <span>Themes Special</span></h2>
+            </div>
+            <div class="container">
+               <div class="row">
+                 <?php
+                // Fetching packages from database
+                $conn = new mysqli('localhost', 'root', '', 'yaarana');
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                $sql = "SELECT * FROM holiday_packages ORDER BY created_at DESC LIMIT 6";
+                $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
-                $i = 1;
-                while ($row = $result->fetch_assoc()) {
-                    $class = ($i % 2 == 0) ? "package-small" : "package-large";
-                    ?>
-                    <div class="package-item <?php echo $class; ?>">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="holiday-yaarana-theme">
-                                <img src="cms/uploads/<?php echo basename($row['image']); ?>" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <?php for ($j = 0; $j < 5; $j++) {
-                                        echo '<span class="fa fa-star checked"></span>';
-                                    } ?>
+                if ($result->num_rows > 0) {
+                    $i = 1;
+                    while ($row = $result->fetch_assoc()) {
+                        $class = ($i % 2 == 0) ? "package-small" : "package-large";
+                ?>
+                        <div class="package-item col-md-<?php echo htmlentities($row['description']) ?> <?php echo $class; ?>">
+                            <div class="td-item define-shadow box-shadow-0 border-0">
+                                <div class="holiday-yaarana-theme custom-image">
+                                    <img src="cms/uploads/<?php echo basename($row['image']); ?>" alt="image">
                                 </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> <?php echo $row['package_name']; ?></h3>
-                                <p><?php echo $row['description']; ?></p>
+                                <div class="td-content">
+                                    <div class="rating mar-bottom-15">
+                                        <?php for ($j = 0; $j < 5; $j++) {
+                                            echo '<span class="fa fa-star checked"></span>';
+                                        } ?>
+                                    </div>
+                                    <h3><i class="fa fa-map-marker-alt"></i> <?php echo $row['package_name']; ?></h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <?php
-                    $i++;
+                <?php
+                        $i++;
+                    }
+                } else {
+                    echo "<p>No holiday packages available.</p>";
                 }
-            } else {
-                echo "<p>No holiday packages available.</p>";
-            }
-            $conn->close();
-            ?>
+                $conn->close();
+                ?>
+               </div>
+            </div>
         </div>
-    </div>
-</section>
-<!-- holiday Themes ends -->
+    </section>
+    <!-- holiday Themes ends -->
 
-
-
-
-
-    
     <!-- banner starts -->
     <section class="search-banner display-flex">
         <div class="slider video-slider">
@@ -176,45 +172,45 @@
     </section>
     <!-- banner ends -->
     <?php
-// Fetch packages for the "India Tour Packages" section
-$sql_india_packages = "SELECT * FROM india_tours";
-$result_india_packages = mysqli_query($con, $sql_india_packages);
-?>
+    // Fetch packages for the "India Tour Packages" section
+    $sql_india_packages = "SELECT * FROM india_tours";
+    $result_india_packages = mysqli_query($con, $sql_india_packages);
+    ?>
 
-<!-- India Packages Section -->
-<section class="top-destinations top-desti2">
-    <div class="container">
-        <div class="section-title">
-            <h2>India <span>Tour Packages</span></h2>
-            <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
-        </div>
-        <div class="content">
-            <div class="row">
-                <?php
-                // Loop through each India package and display it
-                if (mysqli_num_rows($result_india_packages) > 0) {
-                    while ($package = mysqli_fetch_assoc($result_india_packages)) {
-                        echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
-                        echo '    <div class="td-item">';
-                        echo '        <div class="td-image">';
-                        echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
-                        echo '        </div>';
-                        echo '        <p class="price white">trending</p>';
-                        echo '        <div class="td-content">';
-                        echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
-                        echo '        </div>';
-                        echo '    </div>';
-                        echo '</div>';
+    <!-- India Packages Section -->
+    <section class="top-destinations top-desti2">
+        <div class="container">
+            <div class="section-title">
+                <h2>India <span>Tour Packages</span></h2>
+                <p>Dive into the spiritual heart of India, visiting sacred sites and experiencing traditional rituals.</p>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <?php
+                    // Loop through each India package and display it
+                    if (mysqli_num_rows($result_india_packages) > 0) {
+                        while ($package = mysqli_fetch_assoc($result_india_packages)) {
+                            echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
+                            echo '    <div class="td-item">';
+                            echo '        <div class="td-image">';
+                            echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
+                            echo '        </div>';
+                            echo '        <p class="price white">trending</p>';
+                            echo '        <div class="td-content">';
+                            echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
+                            echo '        </div>';
+                            echo '    </div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<p>No India packages available at the moment.</p>';
                     }
-                } else {
-                    echo '<p>No India packages available at the moment.</p>';
-                }
-                ?>
+                    ?>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- India Packages Ends -->
+    </section>
+    <!-- India Packages Ends -->
 
     <!-- Trending Starts -->
     <section class="trending pad-bottom-50 bg-grey">
@@ -224,319 +220,158 @@ $result_india_packages = mysqli_query($con, $sql_india_packages);
             </div>
             <div class="trend-box">
                 <div class="row ticket-slider">
-                    <div class="col-md-4 mar-bottom-30">
-                        <div class="trend-item">
-                            <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                            <div class="trend-image">
-                                <img src="images/package/package2.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                                <div class="trend-price">
-                                    <p class="price">From <span>₹15000/-</span></p>
-                                </div>
-                            </div>
-                            <div class="trend-content">
-                                <div class="sect">
-                                    <p class="ryt1"><i class="flaticon-location-pin"></i> Spiti</p>
-                                    <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 Nights 6 Days</p>
-                                </div>
-                                <h4><a href="#">Spiti Valley Tour Package From Shimla</a></h4>
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <span class="mar-left-5">38 Reviews</span>
+                    <?php
+                    $ret = mysqli_query($con, "select * from products where front='yes' ORDER BY rand() LIMIT 15");
+                    $num = mysqli_num_rows($ret);
+                    if ($num > 0) {
+                        while ($row = mysqli_fetch_array($ret)) { ?>
+                            <div class="col-md-4 mar-bottom-30">
+                                <div class="trend-item">
+                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
+                                    <div class="trend-image">
+                                        <img src="cms/uploads/<?php echo htmlentities($row['productImage1']); ?>" alt="image">
+                                        <div class="trend-tags">
+                                            <a href="#"><i class="flaticon-like"></i></a>
+                                        </div>
+                                        <div class="trend-price">
+                                            <p class="price">From <span>₹<?php echo htmlentities($row['cost']) ?>/-</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="trend-content">
+                                        <div class="sect">
+                                            <p class="ryt1"><i class="flaticon-location-pin"></i> <?php echo htmlentities(substr($row['covered'], 0, 33)); ?></p>
+                                            <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo htmlentities($row['duration']); ?></p>
+                                        </div>
+                                        <h4><a href="#"><?php echo htmlentities(substr($row['productName'], 0, 30)); ?></a></h4>
+                                        <div class="rating mar-bottom-15">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                        </div>
+                                        <span class="mar-left-5">38 Reviews</span>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mar-bottom-30">
-                        <div class="trend-item">
-                            <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                            <div class="trend-image">
-                                <img src="images/package/nainital.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                                <div class="trend-price">
-                                    <p class="price">From <span>₹18990/-</span></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="trend-content">
-                                <div class="sect">
-                                    <p class="ryt1"><i class="flaticon-location-pin"></i> Uttarakhand</p>
-                                    <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> 4 Nights 5 Days</p>
-                                </div>
-                                <h4><a href="#">Nainital with Mussoorie Tour Package</a></h4>
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star-half checked"></span>
-                                    <span class="fa fa-star-half checked"></span>
-                                </div>
-                                <span class="mar-left-5">48 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mar-bottom-30">
-                        <div class="trend-item">
-                            <div class="ribbon ribbon-top-left"><span>Featured</span></div>
-                            <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                            <div class="trend-image">
-                                <img src="images/package/golden.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                                <div class="trend-price">
-                                    <p class="price">From <span>₹19999/-</span></p>
-                                </div>
-                            </div>
-                            <div class="trend-content">
-                                <div class="sect">
-                                    <p class="ryt1"><i class="flaticon-location-pin"></i> Himachal</p>
-                                    <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> 9 Nights 10 Days</p>
-                                </div>
-                                <h4><a href="#">Complete Himachal With Golden Temple</a></h4>
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <span class="mar-left-5">32 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mar-bottom-30">
-                        <div class="trend-item">
-                            <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                            <div class="trend-image">
-                                <img src="images/package/package2.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                                <div class="trend-price">
-                                    <p class="price">From <span>₹15000/-</span></p>
-                                </div>
-                            </div>
-                            <div class="trend-content">
-                                <div class="sect">
-                                    <p class="ryt1"><i class="flaticon-location-pin"></i> Spiti</p>
-                                    <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> 5 Nights 6 Days</p>
-                                </div>
-                                <h4><a href="#">Spiti Valley Tour Package From Shimla</a></h4>
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <span class="mar-left-5">38 Reviews</span>
+                        <?php }
+                    } else { ?>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mar-bottom-30">
-                        <div class="trend-item">
-                            <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                            <div class="trend-image">
-                                <img src="images/package/nainital.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                                <div class="trend-price">
-                                    <p class="price">From <span>₹18990/-</span></p>
-                                </div>
-                            </div>
-                            <div class="trend-content">
-                                <div class="sect">
-                                    <p class="ryt1"><i class="flaticon-location-pin"></i> Uttarakhand</p>
-                                    <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> 4 Nights 5 Days</p>
-                                </div>
-                                <h4><a href="#">Nainital with Mussoorie Tour Package</a></h4>
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star-half checked"></span>
-                                    <span class="fa fa-star-half checked"></span>
-                                </div>
-                                <span class="mar-left-5">48 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mar-bottom-30">
-                        <div class="trend-item">
-                            <div class="ribbon ribbon-top-left"><span>Featured</span></div>
-                            <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                            <div class="trend-image">
-                                <img src="images/package/golden.jpg" alt="image">
-                                <div class="trend-tags">
-                                    <a href="#"><i class="flaticon-like"></i></a>
-                                </div>
-                                <div class="trend-price">
-                                    <p class="price">From <span>₹19999/-</span></p>
-                                </div>
-                            </div>
-                            <div class="trend-content">
-                                <div class="sect">
-                                    <p class="ryt1"><i class="flaticon-location-pin"></i> Himachal</p>
-                                    <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> 9 Nights 10 Days</p>
-                                </div>
-                                <h4><a href="#">Complete Himachal With Golden Temple</a></h4>
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <span class="mar-left-5">32 Reviews</span>
-                            </div>
-                        </div>
-                    </div>
+
+                    <?php } ?>
                 </div>
             </div>
         </div>
     </section>
     <!-- Trending Ends -->
 
-    
+
     <?php
-// Fetch packages for the "International Tour Packages" section
-$sql_international_packages = "SELECT * FROM international_tours";
-$result_international_packages = mysqli_query($con, $sql_international_packages);
-?>
+    // Fetch packages for the "International Tour Packages" section
+    $sql_international_packages = "SELECT * FROM international_tours";
+    $result_international_packages = mysqli_query($con, $sql_international_packages);
+    ?>
 
-<!DOCTYPE html>
-<html lang="zxx">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>International Tour Packages</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/dashboard.css" rel="stylesheet">
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="zxx">
 
-<!-- International Packages Section -->
-<section class="top-destinations top-desti2">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>International Tour Packages</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/dashboard.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- International Packages Section -->
+        <section class="top-destinations top-desti2">
+            <div class="container">
+                <div class="section-title">
+                    <h2>International <span>Tour Packages</span></h2>
+                    <p>Dive into the spiritual heart of the world, visiting breathtaking destinations and experiencing vibrant cultures.</p>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <?php
+                        // Loop through each international package and display it
+                        if (mysqli_num_rows($result_international_packages) > 0) {
+                            while ($package = mysqli_fetch_assoc($result_international_packages)) {
+                                echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
+                                echo '    <div class="td-item">';
+                                echo '        <div class="td-image">';
+                                echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
+                                echo '        </div>';
+                                echo '        <p class="price white">trending</p>';
+                                echo '        <div class="td-content">';
+                                echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
+                                echo '        </div>';
+                                echo '    </div>';
+                                echo '</div>';
+                            }
+                        } else {
+                            echo '<p>No international packages available at the moment.</p>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- International Packages Ends -->
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+
+    </html>
+
+
+
+  <!-- Top destination starts -->
+<section class="top-destinations top-desti1">
     <div class="container">
-        <div class="section-title">
-            <h2>International <span>Tour Packages</span></h2>
-            <p>Dive into the spiritual heart of the world, visiting breathtaking destinations and experiencing vibrant cultures.</p>
+        <div class="section-title title-full">
+            <h2 class="mar-0">Best Selling International <span> Packages</span></h2>
         </div>
         <div class="content">
-            <div class="row">
+            <div class="row review-slider">
                 <?php
-                // Loop through each international package and display it
-                if (mysqli_num_rows($result_international_packages) > 0) {
-                    while ($package = mysqli_fetch_assoc($result_international_packages)) {
-                        echo '<div class="col-md-3 col-sm-6 col-xs-12 mar-bottom-30">';
-                        echo '    <div class="td-item">';
-                        echo '        <div class="td-image">';
-                        echo '            <img src="cms/uploads/' . basename(htmlspecialchars($package['image_url'])) . '" alt="image">';
-                        echo '        </div>';
-                        echo '        <p class="price white">trending</p>';
-                        echo '        <div class="td-content">';
-                        echo '            <h3><i class="fa fa-map-marker-alt"></i>' . htmlspecialchars($package['title']) . '</h3>';
-                        echo '        </div>';
-                        echo '    </div>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo '<p>No international packages available at the moment.</p>';
-                }
-                ?>
+                $ret = mysqli_query($con, "SELECT * FROM best_selling_packages ORDER BY RAND() LIMIT 15");
+                $num = mysqli_num_rows($ret);
+
+                if ($num > 0) {
+                    while ($row = mysqli_fetch_array($ret)) { ?>
+                        <div class="col-md-6">
+                            <div class="td-item box-shadow-0 border-0">
+                                <div class="td-image inter">
+                                    <img src="cms/<?php echo htmlentities($row['image_url']); ?>" alt="Package Image" style="width:100%; height:auto;">
+                                </div>
+                                <div class="td-content">
+                                    <div class="rating mar-bottom-15">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </div>
+                                    <h3><i class="fa fa-map-marker-alt"></i> <?php echo htmlentities($row['title']); ?></h3>
+                                    <a href="<?php echo htmlentities($row['link']); ?>" class="biz-btn" target="_blank">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                } else { ?>
+                    <p class="no-data">No packages available.</p>
+                <?php } ?>
             </div>
         </div>
     </div>
 </section>
+<!-- Top destination ends -->
 
-<!-- International Packages Ends -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-
-    
-    <!-- top destination starts -->
-    <section class="top-destinations top-desti1">
-        <div class="container">
-            <div class="section-title title-full">
-                <h2 class="mar-0">Best Selling International <span> Packages</span></h2>
-            </div>
-            <div class="content">
-                <div class="row review-slider">
-                    <div class="col-md-6">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="td-image inter">
-                                <img src="images/package/singapore-and-bali-honeymoon.avif" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Singapore and Bali Honeymoon Bliss</h3>
-                                <a href="#" class="biz-btn">Book Now</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="td-image inter">
-                                <img src="images/package/Escape-to-Dubai.jpg" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Escape to Dubai | Flights Inclusive Deal</h3>
-                                <a href="#" class="biz-btn">Book Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="td-item box-shadow-0 border-0">
-                            <div class="td-image inter">
-                                <img src="images/package/singapore-and-bali-honeymoon.avif" alt="image">
-                            </div>
-                            <div class="td-content">
-                                <div class="rating mar-bottom-15">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                </div>
-                                <h3><i class="fa fa-map-marker-alt"></i> Singapore and Bali Honeymoon Bliss</h3>
-                                <a href="#" class="biz-btn">Book Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- top destination ends -->
     <!-- short section  -->
     <section class="b2cpanel">
         <div class="_innerWrap">
@@ -683,9 +518,9 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
     </section> -->
     <!-- tour agents Ends -->
 
-     <!-- tour agents Start -->
-      <?php include "MembersDashboard.php"?>
-     <!-- tour agents Start -->
+    <!-- tour agents Start -->
+    <?php include "MembersDashboard.php" ?>
+    <!-- tour agents Start -->
 
 
 
@@ -701,93 +536,29 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
     </section>
     <!-- cta_one ends -->
 
-    <!-- top deal starts -->
-    <section class="top-deals">
-        <div class="container">
-            <div class="section-title">
-                <h2>Most Popular Packages</h2>
-                <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-            </div>
-            <div class="row top-deal-slider">
-                <div class="col-md-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/111.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> China</h6>
-                        <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/japan.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i>Japan</h6>
-                        <h4><a href="#">Save big on hotels!</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/444.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
-                        <h4><a href="#">Experience Europe Your Way</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/germny.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="mar-bottom-10"><i class="fa fa-map-marker-alt"></i> Germany</h6>
-                        <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- top deal ends -->
+       <!-- top deal ends -->
     <!-- partners starts -->
     <section class="partners bg-grey">
         <div class="container">
             <div class="section-title">
                 <h2>Payment Methods</h2>
-                <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                <!-- <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p> -->
             </div>
             <div class="dest-partner">
                 <div class="row partner-slider">
-                    <div class="col-md-2">
+                    <div class="col-md-2 payment_cus">
                         <img src="images/gpayyy.png" alt="partners">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 payment_cus">
                         <img src="images/paytmm.png" alt="partners">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 payment_cus">
                         <img src="images/masterCard.png" alt="partners">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 payment_cus">
                         <img src="images/visa.png" alt="partners">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 payment_cus">
                         <img src="images/PayPal.png" alt="partners">
                     </div>
                 </div>
@@ -1077,44 +848,54 @@ $result_international_packages = mysqli_query($con, $sql_international_packages)
 
 </body>
 <style>
-  /* Grid container for the tile layout */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjusts for responsive layout */
-    gap: 20px; /* Space between grid items */
-    margin-top: 20px;
-}
-
-/* Style for larger packages */
-.package-large .holiday-yaarana-theme img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-/* Style for smaller packages */
-.package-small .holiday-yaarana-theme img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-/* Shared styles for package items */
-.package-item {
-    transition: transform 0.3s ease-in-out;
-}
-
-.package-item:hover {
-    transform: scale(1.05);
-}
-
-/* Responsive design adjustments */
-@media (max-width: 768px) {
+    /* Grid container for the tile layout */
     .grid-container {
-        grid-template-columns: 1fr; /* Stack items on smaller screens */
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        /* Adjusts for responsive layout */
+        gap: 20px;
+        /* Space between grid items */
+        margin-top: 20px;
     }
-}
 
+    /* Style for larger packages */
+    .package-large .holiday-yaarana-theme img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    /* Style for smaller packages */
+    .package-small .holiday-yaarana-theme img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* Shared styles for package items */
+    .package-item {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .package-item:hover {
+        transform: scale(1.05);
+    }
+    .payment_cus img{
+        width:70%;
+        
+    }
+    .payment_cus{
+        padding:5px 0;
+
+    }
+
+    /* Responsive design adjustments */
+    @media (max-width: 768px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+            /* Stack items on smaller screens */
+        }
+    }
 </style>
 
 </html>

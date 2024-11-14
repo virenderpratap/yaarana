@@ -65,6 +65,15 @@
     background: transparent;
     margin: 0;
 }
+.custom-image img{
+    margin: 10px 0;
+    height: 300px!important;
+    border-radius: 10px;
+}
+.package-large .holiday-yaarana-theme img {
+
+    border-radius: 7px;
+}
 .navbar.navbar-default {
     -webkit-transition: none;
     -moz-transition: none;
@@ -1851,6 +1860,20 @@ section.banner-form.form-style3 {
     overflow: hidden;
     transition: all 0.5s;
     z-index: 1;
+    border-radius: 10px;
+}
+
+.define-shadow:before {
+    content: '';
+    background: linear-gradient(to top, #000000c9, transparent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    transition: all 0.5s;
+    z-index: 1;
+    bottom: 10px!important;
     border-radius: 10px;
 }
 .td-item:before {
