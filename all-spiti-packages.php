@@ -31,25 +31,24 @@
 
     <!-- header starts -->
     <?php include "head.php" ?>
+<?php
+// Assuming $cid is the category ID from the URL or request parameters
+$er = mysqli_query($con, "SELECT * FROM category WHERE id='$cid'");
+$r = mysqli_fetch_array($er);
 
-    <!-- header ends -->
-
-    <!-- Breadcrumb -->
-    <section class="breadcrumb-outer text-center">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <h2 class="white">Unexplored Spiti</h2>
-                <nav aria-label="breadcrumb">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Spiti</li>
-                    </ul>
-                </nav>
-            </div>
+// Fetch category image (from the database)
+$category_image = isset($r['categoryimg']) && !empty($r['categoryimg']) ? htmlspecialchars($r['categoryimg']) : 'default-image.jpg'; // Fallback image
+?>
+<!-- Breadcrumb -->
+<section class="breadcrumb-outer text-center" style="background: url(./cms/uploads/<?php echo $category_image; ?>);">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2 class="white"><?php echo htmlspecialchars($r['categoryName']); ?></h2>
         </div>
-        <div class="overlay"></div>
-    </section>
-    <!-- BreadCrumb Ends -->
+    </div>
+    <div class="overlay"></div>
+</section>
+<!-- BreadCrumb Ends -->
 
     <!-- tour list starts -->
     <section class="list">

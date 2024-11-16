@@ -6,8 +6,8 @@
     <div class="content-right pull-right">
         <div class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">
-                <div class="profile-sec">
-                    <button onclick="window.location.href='/yaarana/index.php'" class="btn"><i class="fa fa-sign-out-alt"></i> Logout</button>
+                <div class="profile-sec" style="background:#242424;">
+                    <button onclick="window.location.href='/yaarana/index.php'" class="btn" style="background:#242424; width:70px;"><img src="./uploads/logout.png" alt=""></button>
                 </div>
             </a>
             <ul class="dropdown-menu">

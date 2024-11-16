@@ -15,19 +15,19 @@ $result = mysqli_query($con, $sql);
     <title>Top Deals</title>
     <style>
         .slider-itemm:nth-of-type(1n) .dealx {
-            background-color: lightgreen !important;
+            background-image: linear-gradient(to right, #009db0, #0487c8, #99a3d4, #90c4ff96) !important;
         }
         .slider-itemm:nth-of-type(2n) .dealx {
-            background-color: lightpink !important;
+            background-image: linear-gradient(to right, #75d000, #02bd43, #21b92d57, #0abc3e7d) !important;
         }
         .slider-itemm:nth-of-type(3n) .dealx {
-            background-color: yellowgreen !important;
+            background-image:linear-gradient(to right, #b00000, #e95858, #f76d6d, #a50000) !important;
         }
         .slider-itemm:nth-of-type(4n) .dealx {
-            background-color: peru !important;
+            background-image: linear-gradient(to right, #0583cc, #62aceb, #99a3d4, #ff12d196);
         }
         .slider-itemm:nth-of-type(5n) .dealx {
-            background-color: orchid !important;
+            background-image: linear-gradient(to right, pink, #0487c8, #99a3d4, #90c4ff96) !important;
         }
     </style>
 </head>

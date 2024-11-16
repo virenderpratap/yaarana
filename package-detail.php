@@ -47,49 +47,10 @@ $row = mysqli_fetch_array($er);
                             <div class="slider-1 slider-store">
                   
                                 <div class="detail-slider-item inside-packages">
-                                    <img src="images/package/spiti-tour-package.webp" alt="image">
-                                </div>
-                                <div class="detail-slider-item inside-packages">
-                                    <img src="images/package/spiti-tour-package.webp" alt="image">
-                                </div>
-                                <div class="detail-slider-item inside-packages">
-                                    <img src="images/package/spiti-tour-package.webp" alt="image">
-                                </div>
-                                <div class="detail-slider-item inside-packages">
-                                    <img src="images/package/spiti-tour-package.webp" alt="image">
-                                </div>
-                               
-                           
-                            </div>
-                            <div class="slider-1 slider-thumbs slider-sort-inner">
-                                <div class="detail-slider-item">
-                                    <img src="images/package/spiti-tour-package.webp" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti.jpg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti1.jpg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti2.jpeg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti3.jpg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti4.jpg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti5.jpg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti6.jpg" alt="image">
-                                </div>
-                                <div class="detail-slider-item slider-sort-inner">
-                                    <img src="images/package/spiti7.jpg" alt="image">
+                                    <img src="cms/uploads/<?php echo htmlentities($row['productImage1']); ?>" alt="image">
                                 </div>
                             </div>
+
                         </div>
                         <div class="single-full-title section-border">
                             <div class="single-title">
@@ -109,11 +70,8 @@ $row = mysqli_fetch_array($er);
                         <div class="tour-includes">
                             <ul>
                                 <li><i class="fa fa-clock-o" aria-hidden="true"></i><?php echo htmlentities($row['duration']); ?></li>
-                                <li><i class="fa fa-group" aria-hidden="true"></i> Max People : 26</li>
+                                <li><i class="fa fa-car" aria-hidden="true"></i> Pickup : Airport</li>
                                 <li><i class="fa fa-wifi" aria-hidden="true"></i> Wifi Available</li>
-                                <li><i class="fa fa-calendar" aria-hidden="true"></i> Jan 18 - Dec 21</li>
-                                <li><i class="fa fa-user" aria-hidden="true"></i> Min Age : 10+</li>
-                                <li><i class="fa fa-map-o" aria-hidden="true"></i> Pickup : Airport</li>
                             </ul>
                         </div>
                         <div class="description mar-bottom-30">
@@ -139,11 +97,22 @@ $row = mysqli_fetch_array($er);
                             } ?>
                         </div>
                         <!-- blog blockquote -->
-                        <div class="blog-quote mar-bottom-30">
-                            <p class="white">“Embark on a journey to Spiti Valley from Shimla for stunning landscapes and unforgettable adventures!” </p>
-                            <span class="white">Yaarana Holliday</span>
-                            <i class="fas fa-quote-left"></i>
+                       <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                                            <h3>Inclusion</h3>
+
+                                        <?php echo $row['inclusion']; ?>
+
+                            </div>
+                            <div class="col-md-6">
+                                <h3>Exclusion</h3>
+
+                                <?php echo $row['exclusions']; ?>
+
+                            </div>
                         </div>
+                       </div>
 
                         <div class="blog-imagelist mar-bottom-30">
                             <div class="row">
@@ -156,74 +125,9 @@ $row = mysqli_fetch_array($er);
                             </div>
                         </div>
 
-
-
-                        <!-- blog share -->
-                        <!-- blog blockquote -->
-
-                        <div class="single-rooms mar-bottom-30">
-                            <h3>Select Your Package</h3>
-                            <div class="room-item">
-                                <div class="row display-flex">
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <div class="room-image">
-                                            <img src="images/package/spiti6.jpg" alt="Image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <div class="room-content">
-                                            <div class="room-info">
-                                                <h4>Volvo Tour Pcakage Ex. Delhi</h4>
-                                                <div class="content-lower">
-                                                    <ul>
-                                                        <li><i class="fa fa-bed"></i> 480 sq ft</li>
-                                                        <li><i class="fa fa-bed"></i> 4 rooms</li>
-                                                        <li><i class="fa fa-bed"></i> 2 bathrooms</li>
-                                                        <li><i class="fa fa-bed"></i> 6 beds</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="room-price">
-                                                <span class="offer clearfix">Save 13% Today</span>
-                                                <p class="price">From <span>$350.00</span> / night</p>
-                                                <a href="#" class="biz-btn-black bg-green">Book Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="room-item">
-                                <div class="row display-flex">
-                                    <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <div class="room-image">
-                                            <img src="images/package/spiti2.jpeg" alt="Image">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <div class="room-content">
-                                            <div class="room-info">
-                                                <h4>Cab Tour Package Ex. Chandigarh</h4>
-                                                <div class="content-lower">
-                                                    <ul>
-                                                        <li><i class="fa fa-bed"></i> 480 sq ft</li>
-                                                        <li><i class="fa fa-bed"></i> 4 rooms</li>
-                                                        <li><i class="fa fa-bed"></i> 2 bathrooms</li>
-                                                        <li><i class="fa fa-bed"></i> 6 beds</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                            <div class="room-price">
-                                                <span class="offer clearfix">Save 13% Today</span>
-                                                <p class="price">From <span>$350.00</span> / night</p>
-                                                <a href="#" class="biz-btn-black bg-green">Book Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                         <!-- another added  -->
+                          <?php include "./package-select.php" ?>
+                         <!-- another closed  -->
 
                     </div>
                 </div>
@@ -240,123 +144,53 @@ $row = mysqli_fetch_array($er);
         <div class="container">
             <div class="section-title">
                 <h2>Related <span>Holiday</span> Plan</h2>
-                <p>Lorem Ipsum is simply dummy text the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
             </div>
-            <div class="row top-deal-slider">
-                <div class="col-md-4">
-                    <div class="trend-item">
-                        <div class="trend-image">
-                            <img src="images/package/spiti1.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
+      <div class="row ticket-slider">
+                    <?php
+                    $ret = mysqli_query($con, "select * from products where front='yes' ORDER BY rand() LIMIT 15");
+                    $num = mysqli_num_rows($ret);
+                    if ($num > 0) {
+                        while ($row = mysqli_fetch_array($ret)) { ?>
+                            <div class="col-md-4 mar-bottom-30">
+                                <div class="trend-item">
+                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
+                                    <div class="trend-image">
+                                        <img src="cms/uploads/<?php echo htmlentities($row['productImage1']); ?>" alt="image">
+                                        <div class="trend-tags">
+                                            <a href="#"><i class="flaticon-like"></i></a>
+                                        </div>
+                                        <div class="trend-price">
+                                            <p class="price">From <span>₹<?php echo htmlentities($row['cost']) ?>/-</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="trend-content">
+                                        <div class="sect">
+                                            <p class="ryt1"><i class="flaticon-location-pin"></i> <?php echo htmlentities(substr($row['covered'], 0, 33)); ?></p>
+                                            <p class="mar-0 ryt1"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo htmlentities($row['duration']); ?></p>
+                                        </div>
+                                        <h4><a href="#"><?php echo htmlentities(substr($row['productName'], 0, 30)); ?></a></h4>
+                                        <div class="rating mar-bottom-15">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                        </div>
+                                        <span class="mar-left-5">38 Reviews</span>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="trend-price">
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Japan</p>
-                            <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-                            <div class="rating mar-bottom-15">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                            </div>
-                            <span class="mar-left-5">21 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
+                        <?php }
+                    } else { ?>
+
+
+                    <?php } ?>
                 </div>
-                <div class="col-md-4">
-                    <div class="trend-item">
-                        <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                        <div class="trend-image">
-                            <img src="images/package/spiti2.jpeg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Multi-day Tours</p>
-                                <p class="price">From <span>$899.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Italy</p>
-                            <h4><a href="#">Bosphorus Strait and Black Sea Half-Day Cruise from Istanbul</a></h4>
-                            <div class="rating mar-bottom-15">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                                <span class="fa fa-star-half checked"></span>
-                            </div>
-                            <span class="mar-left-5">48 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="trend-item">
-                        <div class="trend-image">
-                            <img src="images/package/spiti3.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Attraction Tickets</p>
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Turkey</p>
-                            <h4><a href="#">NYC One World Observatory Skip-the-Line Ticket</a></h4>
-                            <div class="rating mar-bottom-15">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                            <span class="mar-left-5">18 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="trend-item">
-                        <div class="ribbon ribbon-top-left"><span>Featured</span></div>
-                        <div class="trend-image">
-                            <img src="images/package/spiti4.jpg" alt="image">
-                            <div class="trend-tags">
-                                <a href="#"><i class="flaticon-like"></i></a>
-                            </div>
-                            <div class="trend-price">
-                                <p>Attraction Tickets</p>
-                                <p class="price">From <span>$350.00</span></p>
-                            </div>
-                        </div>
-                        <div class="trend-content">
-                            <p><i class="flaticon-location-pin"></i> Denmark</p>
-                            <h4><a href="#">NYC One World Observatory Skip-the-Line Ticket</a></h4>
-                            <div class="rating mar-bottom-15">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                            </div>
-                            <span class="mar-left-5">32 Reviews</span>
-                            <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     <!-- hotel-nearby Ends -->
-
+<br> <br>
     <!-- footer starts -->
     <?php include "footer.php" ?>
     <!-- footer ends -->

@@ -1,7 +1,7 @@
 
 <?php
 include('./cms/include/config.php');
-$cid="30";
+$cid="40";
 // $cid=intval($_GET['cid']);
 ?>
 <!DOCTYPE html>

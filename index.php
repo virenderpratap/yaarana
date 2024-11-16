@@ -346,7 +346,7 @@
                     while ($row = mysqli_fetch_array($ret)) { ?>
                         <div class="col-md-6">
                             <div class="td-item box-shadow-0 border-0">
-                                <div class="td-image inter">
+                                <div class="td-image inter" style="height:350px; ">
                                     <img src="cms/<?php echo htmlentities($row['image_url']); ?>" alt="Package Image" style="width:100%; height:auto;">
                                 </div>
                                 <div class="td-content">
@@ -550,7 +550,7 @@
                         <img src="images/gpayyy.png" alt="partners">
                     </div>
                     <div class="col-md-2 payment_cus">
-                        <img src="images/paytmm.png" alt="partners">
+                        <img src="images/Paytmm.png" alt="partners">
                     </div>
                     <div class="col-md-2 payment_cus">
                         <img src="images/masterCard.png" alt="partners">

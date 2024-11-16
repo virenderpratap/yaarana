@@ -1,3 +1,9 @@
+
+<?php
+include('./cms/include/config.php');
+$cid="31";
+// $cid=intval($_GET['cid']);
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
 
@@ -6,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Family Trip</title>
+    <title>Yaarana Holidays</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
     <!-- Bootstrap core CSS -->
@@ -33,7 +39,9 @@
     <?php include "head.php" ?>
 
     <!-- header ends -->
-
+          <?php $er=mysqli_query($con,"select * from category where id='$cid'");
+$r=mysqli_fetch_array($er);
+    ?>
     <!-- Breadcrumb -->
     <section class="breadcrumb-outer text-center">
         <div class="container">
@@ -61,21 +69,29 @@
                             </div>
                         </div>
                         <div class="row">
+                                                   <?php
+$ret=mysqli_query($con,"select * from products where category='$cid'");
+$num=mysqli_num_rows($ret);
+if($num>0)
+{
+while ($row=mysqli_fetch_array($ret)) 
+{?>		
                             <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
                                 <div class="trend-item">
                                     <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
                                     <div class="trend-image">
-                                        <img src="images/package/spiti-tour-package.webp" alt="image">
+                                        <a href="package-detail.php?pid=<?php echo htmlentities($row['id']);?>&<?php echo htmlentities($row['productName']);?>"></a>
+                                        <img src="cms/uploads/<?php echo htmlentities($row['productImage1']);?>" alt="image">
                                         <div class="trend-tags">
                                             <a href="#"><i class="flaticon-like"></i></a>
                                         </div>
                                         <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
+                                            <p class="price">From <span>₹<?php echo htmlentities($row['cost']);?>/-</span></p>
                                         </div>
                                     </div>
                                     <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
+                                        <p><i class="flaticon-location-pin"></i> <?php echo htmlentities(substr($row['covered'], 0, 33)); ?></p>
+                                        <h4><a href="package-detail.php?pid=<?php echo htmlentities($row['id']);?>&<?php echo htmlentities($row['productName']);?>"><?php echo htmlentities(substr($row['productName'], 0, 33)); ?></a></h4>
 
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-6">
@@ -88,7 +104,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
+                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo htmlentities($row['duration']);?></p>
 
                                             </div>
                                         </div>
@@ -110,404 +126,19 @@
                                         <div class="row yarana-full-btn">
                                              <div class="col-md-12 yarana-flex-center">
                                                 <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
+                                                    <button class="yaarana-btn-green"><a href="package-detail.php?pid=<?php echo htmlentities($row['id']);?>&<?php echo htmlentities($row['productName']);?>">Get This Package </aDetails</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/package2.jpg" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/package3.jpeg" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/spiti-tour-package.webp" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                  <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/spiti-tour-package.webp" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/package2.jpg" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>      <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/spiti-tour-package.webp" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 mar-bottom-30">
-                                <div class="trend-item">
-                                    <div class="ribbon ribbon-top-left"><span>25% OFF</span></div>
-                                    <div class="trend-image">
-                                        <img src="images/package/package2.jpg" alt="image">
-                                        <div class="trend-tags">
-                                            <a href="#"><i class="flaticon-like"></i></a>
-                                        </div>
-                                        <div class="trend-price">
-                                            <p class="price">From <span>₹15,500/-</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="trend-content">
-                                        <p><i class="flaticon-location-pin"></i> Spiti Valley</p>
-                                        <h4><a href="#">Stonehenge, Windsor Castle, and Bath from London</a></h4>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <div class="rating mar-bottom-15">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 ccol-sm-6 col-xs-6">
-                                                <p class="mar-0"><i class="fa fa-clock-o" aria-hidden="true"></i> 3 days & 2 night</p>
-
-                                            </div>
-                                        </div>
-                                        <div class="row yaarana-border-btm">
-                                            <div class="col-md-5">
-                                                <div class="yaarana-package-icon">
-                                                      <img src="./icon/yaarana-whatsapp.png" alt="">
-                                                      <img src="./icon/yaarana-calling.png" alt="">
-                                                      <img src="./icon/yaarana-mail.png" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 yarana-flex-end">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn">Redeem This Offer</button>
-                                                </div>
-                                            </div>  
-
-                                        </div>
-                                        <div class="row yarana-full-btn">
-                                             <div class="col-md-12 yarana-flex-center">
-                                                <div class="yaarana-package-icon">
-                                                    <button class="yaarana-btn-green">Get This Package Details</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<?php } } else {?>
+	
+		  <div> <h3>No Records Found</h3>
+		</div>
+		
+<?php } ?>	
                             <div class="col-xs-12">
                                 <div class="blog-button text-center">
                                     <a href="car-detail.html" class="biz-btn biz-btn1">Load More</a>

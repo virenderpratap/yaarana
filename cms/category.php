@@ -3,38 +3,37 @@ session_start();
 include('include/config.php');
 
 // Check if the user is logged in
-if(strlen($_SESSION['alogin']) == 0) {	
+if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
     date_default_timezone_set('Asia/Kolkata'); // Set timezone
     $currentTime = date('d-m-Y h:i:s A', time()); // Current time
 
     // Add new category
-    if(isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
         $category = $_POST['category'];
         $description = $_POST['description'];
         $productimage1 = $_FILES["productimage1"]["name"];
-        
+
         // If an image is uploaded, move the file to the target directory
-        if($productimage1) {
+        if ($productimage1) {
             move_uploaded_file($_FILES["productimage1"]["tmp_name"], "./uploads/" . $productimage1);
         }
 
         // Insert category into the database
-        $sql = mysqli_query($con, "INSERT INTO category (categoryName, categoryDescription, categoryimg) VALUES ('$category', '$description', '$productimage1')");
-
+        mysqli_query($con, "INSERT INTO category (categoryName, categoryDescription, categoryimg) VALUES ('$category', '$description', '$productimage1')");
         $_SESSION['msg'] = "Category Added Successfully!";
     }
 
     // Update category
-    if(isset($_POST['update'])) {
+    if (isset($_POST['update'])) {
         $category_id = $_POST['category_id'];
         $category = $_POST['category'];
         $description = $_POST['description'];
         $productimage1 = $_FILES["productimage1"]["name"];
-        
+
         // If a new image is uploaded, update it
-        if($productimage1) {
+        if ($productimage1) {
             move_uploaded_file($_FILES["productimage1"]["tmp_name"], "./uploads/" . $productimage1);
             $update_image_query = ", categoryimg='$productimage1'";
         } else {
@@ -42,20 +41,19 @@ if(strlen($_SESSION['alogin']) == 0) {
         }
 
         // Update category in the database
-        $sql = mysqli_query($con, "UPDATE category SET categoryName='$category', categoryDescription='$description' $update_image_query WHERE id='$category_id'");
-        
+        mysqli_query($con, "UPDATE category SET categoryName='$category', categoryDescription='$description' $update_image_query WHERE id='$category_id'");
         $_SESSION['msg'] = "Category Updated Successfully!";
     }
 
     // Delete category
-    if(isset($_GET['del'])) {
+    if (isset($_GET['del'])) {
         $id = $_GET['id'];
         mysqli_query($con, "DELETE FROM category WHERE id='$id'");
         $_SESSION['delmsg'] = "Category Deleted Successfully!";
     }
 
     // Fetch category data for editing
-    if(isset($_GET['edit_id'])) {
+    if (isset($_GET['edit_id'])) {
         $edit_id = $_GET['edit_id'];
         $sql_edit = mysqli_query($con, "SELECT * FROM category WHERE id='$edit_id'");
         $edit_package = mysqli_fetch_array($sql_edit);
@@ -70,6 +68,11 @@ if(strlen($_SESSION['alogin']) == 0) {
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/dashboard.css" rel="stylesheet">
+
+    <!-- DataTables CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
@@ -86,7 +89,7 @@ if(strlen($_SESSION['alogin']) == 0) {
             <section class="top-deals">
                 <div class="container">
                     <div class="section-title title-full">
-                        <h2><?php echo isset($edit_package) ? 'Edit' : 'Add a New'; ?> <span>Category</span></h2>
+                        <h2><?php echo isset($edit_package) ? 'Edit' : 'Add a New'; ?> <span style="color:#91b133">Category</span></h2>
                     </div>
                     <!-- Add or Edit Category Form -->
                     <form action="category.php" method="POST" enctype="multipart/form-data">
@@ -117,9 +120,10 @@ if(strlen($_SESSION['alogin']) == 0) {
             <section class="package-list">
                 <div class="container">
                     <div class="section-title title-full">
-                        <h2>Manage <span>Categories</span></h2>
+                        <h2>Manage <span style="color:#91b133">Categories</span></h2>
                     </div>
-                    <table class="table table-bordered table-custom">
+                    <!-- DataTables Table -->
+                    <table id="categoriesTable" class="table table-bordered table-custom">
                         <thead>
                             <tr>
                                 <th>Category Name</th>
@@ -128,28 +132,6 @@ if(strlen($_SESSION['alogin']) == 0) {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
-                            $sql_categories = "SELECT * FROM category";
-                            $result_categories = mysqli_query($con, $sql_categories);
-                            
-                            if (mysqli_num_rows($result_categories) > 0) {
-                                while ($category = mysqli_fetch_assoc($result_categories)) {
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($category['categoryName']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($category['categoryDescription']) . "</td>";
-                                    echo "<td><img src='uploads/" . basename($category['categoryimg']) . "' alt='" . htmlspecialchars($category['categoryName']) . "' style='width: 100px;'></td>";
-                                    echo "<td>
-                                        <a href='category.php?edit_id=" . $category['id'] . "' class='btn btn-warning'>Edit</a>
-                                        <a href='category.php?del&id=" . $category['id'] . "' class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this category?\")'>Delete</a>
-                                    </td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='4' class='no-data'>No categories available.</td></tr>";
-                            }
-                            ?>
-                        </tbody>
                     </table>
                 </div>
             </section>
@@ -157,15 +139,64 @@ if(strlen($_SESSION['alogin']) == 0) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#categoriesTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "categoriesData.php",
+            "columns": [
+                { "title": "Category Name" },
+                { "title": "Description" },
+                { "title": "Image" },
+                { "title": "Action" }
+            ]
+        });
+    });
+</script>
+
 </body>
 <style>
-    .header_black {
-        background: #242424;
+    .header_black { background: #242424; }
+    .table-custom {
+        background-color: #f8f9fa; /* Light background for the table */
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid #dee2e6; /* Border color */
+    }
+
+    .table-custom th {
+        background-color: #343a40; /* Dark header background */
+        color: #fff; /* White text */
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    .table-custom td {
+        padding: 10px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: #e9ecef; /* Highlight on hover */
+    }
+
+    .table-custom img {
+        border-radius: 5px;
+        max-width: 80px; /* Restrict image size */
+    }
+
+    .btn-sm {
+        margin: 0 5px; /* Space between buttons */
+    }
+
+    .dataTables_wrapper {
+        margin-top: 20px;
     }
 </style>
 </html>
-
 <?php
 }
 ?>

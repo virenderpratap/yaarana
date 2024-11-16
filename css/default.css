@@ -729,7 +729,7 @@ section.breadcrumb-outer {
     padding: 114px 0 114px;
 }
 section.breadcrumb-outer:before {
-    background: url(../images/package/spiti.jpg) no-repeat;
+    background-repeat: no-repeat!important;
     background-position: center;
     animation: kbrns_zoomInOut 15s linear 0s infinite alternate;
     background-size: cover;

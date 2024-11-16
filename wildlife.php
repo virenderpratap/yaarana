@@ -1,7 +1,7 @@
 
 <?php
 include('./cms/include/config.php');
-$cid="14";
+$cid="34";
 // $cid=intval($_GET['cid']);
 ?>
 <!DOCTYPE html>
@@ -46,7 +46,7 @@ $r=mysqli_fetch_array($er);
     <section class="breadcrumb-outer text-center">
         <div class="container">
             <div class="breadcrumb-content">
-                <h2 class="white">Unexplored Spiti</h2>
+                <h2 class="white"><?php echo $r['categoryName']; ?></h2>
             </div>
         </div>
         <div class="overlay"></div>
